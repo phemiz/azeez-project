@@ -35,7 +35,13 @@ class Logger {
     private function __construct() {
         $this->logDir = dirname(dirname(__DIR__)) . '/logs';
         if (!is_dir($this->logDir)) {
-            mkdir($this->logDir, 0755, true);
+            @mkdir($this->logDir, 0755, true);
+        }
+        if (!is_writable($this->logDir)) {
+            $this->logDir = '/tmp/logs';
+            if (!is_dir($this->logDir)) {
+                @mkdir($this->logDir, 0755, true);
+            }
         }
         $this->maxFileSize = 5 * 1024 * 1024; // 5 MB default
         $this->maxBackupFiles = 5;
@@ -98,12 +104,15 @@ class Logger {
     }
 
     /**
-     * Thread-safe write and log rotation
-     */
     private function writeAndRotate(string $filePath, string $logLine): void {
         try {
             // Write log line to file with lock
-            file_put_contents($filePath, $logLine, FILE_APPEND | LOCK_EX);
+            $written = @file_put_contents($filePath, $logLine, FILE_APPEND | LOCK_EX);
+            if ($written === false) {
+                // Fall back to system error log so it goes to Vercel logs
+                error_log(trim($logLine));
+                return;
+            }
 
             // Clear PHP stat cache to get fresh filesize
             clearstatcache(true, $filePath);
