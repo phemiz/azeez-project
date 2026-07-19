@@ -78,12 +78,12 @@ class DashboardController extends Controller {
         );
 
         $maxRiskScore = (int)$this->db->fetchColumn(
-            "SELECT MAX(risk_score) FROM activity_logs WHERE user_id = ?",
+            "SELECT MAX(score) FROM risk_scores WHERE user_id = ?",
             [$user['id']]
         );
 
         $alertCount = (int)$this->db->fetchColumn(
-            "SELECT COUNT(*) FROM activity_logs WHERE user_id = ? AND severity IN ('high', 'critical')",
+            "SELECT COUNT(*) FROM security_alerts WHERE user_id = ? AND severity IN ('high', 'critical')",
             [$user['id']]
         );
 
