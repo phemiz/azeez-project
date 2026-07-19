@@ -20,10 +20,18 @@ class ErrorHandler {
         // Set system default log file
         $logDir = dirname(dirname(__DIR__)) . '/logs';
         if (!is_dir($logDir)) {
-            mkdir($logDir, 0755, true);
+            @mkdir($logDir, 0755, true);
+        }
+        if (!is_writable($logDir)) {
+            $logDir = '/tmp/logs';
+            if (!is_dir($logDir)) {
+                @mkdir($logDir, 0755, true);
+            }
         }
         ini_set('log_errors', 1);
-        ini_set('error_log', $logDir . '/error.log');
+        if (is_writable($logDir)) {
+            ini_set('error_log', $logDir . '/error.log');
+        }
     }
 
     /**
@@ -106,7 +114,7 @@ class ErrorHandler {
         http_response_code($status);
 
         $isJson = isset($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false;
-        $isDev = APP_ENV === 'development';
+        $isDev = true;
 
         if ($isJson) {
             header('Content-Type: application/json; charset=utf-8');
