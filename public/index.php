@@ -18,7 +18,12 @@ spl_autoload_register(function (string $class) {
     }
 
     $relativeClass = substr($class, $len);
-    $file = $baseDir . str_replace('\\', '/', $relativeClass) . '.php';
+    $parts = explode('\\', $relativeClass);
+    if (count($parts) > 0) {
+        $parts[0] = lcfirst($parts[0]);
+    }
+    $relativeClass = implode('/', $parts);
+    $file = $baseDir . $relativeClass . '.php';
 
     if (file_exists($file)) {
         require_once $file;
