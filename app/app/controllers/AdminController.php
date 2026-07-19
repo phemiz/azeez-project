@@ -53,8 +53,8 @@ class AdminController extends Controller {
         $metrics = [
             'total_users'     => (int)$this->db->fetchColumn("SELECT COUNT(*) FROM users"),
             'total_admins'    => (int)$this->db->fetchColumn("SELECT COUNT(*) FROM admins"),
-            'total_threats'   => (int)$this->db->fetchColumn("SELECT COUNT(*) FROM activity_logs WHERE risk_score > 0"),
-            'critical_alerts' => (int)$this->db->fetchColumn("SELECT COUNT(*) FROM activity_logs WHERE severity = 'critical'"),
+            'total_threats'   => (int)$this->db->fetchColumn("SELECT COUNT(*) FROM risk_scores WHERE score > 0"),
+            'critical_alerts' => (int)$this->db->fetchColumn("SELECT COUNT(*) FROM security_alerts WHERE severity = 'critical'"),
             'encrypted_count' => (int)$this->db->fetchColumn("SELECT COUNT(*) FROM encrypted_messages")
         ];
 
