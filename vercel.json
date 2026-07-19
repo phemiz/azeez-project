@@ -1,12 +1,6 @@
 {
   "functions": {
-    "public/index.php": {
-      "runtime": "vercel-community/php@0.9.0"
-    },
-    "public/install.php": {
-      "runtime": "vercel-community/php@0.9.0"
-    },
-    "public/db-init.php": {
+    "api/*.php": {
       "runtime": "vercel-community/php@0.9.0"
     }
   },
@@ -29,15 +23,15 @@
     },
     {
       "src": "/install.php",
-      "dest": "/public/install.php"
+      "dest": "/api/install.php"
     },
     {
       "src": "/db-init.php",
-      "dest": "/public/db-init.php"
+      "dest": "/api/db-init.php"
     },
     {
       "src": "/(.*)",
-      "dest": "/public/index.php"
+      "dest": "/api/index.php"
     }
   ]
 }
