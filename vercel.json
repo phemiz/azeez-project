@@ -1,0 +1,36 @@
+{
+  "functions": {
+    "public/index.php": {
+      "runtime": "vercel-community/php@0.9.0"
+    },
+    "public/install.php": {
+      "runtime": "vercel-community/php@0.9.0"
+    }
+  },
+  "routes": [
+    {
+      "src": "/css/(.*)",
+      "dest": "/public/css/$1"
+    },
+    {
+      "src": "/js/(.*)",
+      "dest": "/public/js/$1"
+    },
+    {
+      "src": "/design-system/(.*)",
+      "dest": "/public/design-system/$1"
+    },
+    {
+      "src": "/final_aligned_project_document.pdf",
+      "dest": "/public/final_aligned_project_document.pdf"
+    },
+    {
+      "src": "/install.php",
+      "dest": "/public/install.php"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/public/index.php"
+    }
+  ]
+}

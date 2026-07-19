@@ -25,7 +25,20 @@ ErrorHandler::register();
 
 // 4. Define Global Constants
 define('APP_ENV', Env::get('APP_ENV', 'development'));
-define('APP_URL', rtrim(Env::get('APP_URL', 'http://localhost/gsm-security'), '/'));
+
+$detectedUrl = 'http://localhost/gsm-security';
+if (Env::get('APP_URL')) {
+    $detectedUrl = Env::get('APP_URL');
+} else {
+    $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http');
+    $host = $_SERVER['HTTP_HOST'] ?? '';
+    if ($host !== '') {
+        $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
+        $basePath = rtrim(str_replace('\\', '/', dirname(dirname($scriptName))), '/');
+        $detectedUrl = $protocol . '://' . $host . $basePath;
+    }
+}
+define('APP_URL', rtrim($detectedUrl, '/'));
 
 // Database parameters
 define('DB_HOST', Env::get('DB_HOST', '127.0.0.1'));
