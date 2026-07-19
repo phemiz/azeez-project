@@ -5,6 +5,9 @@
     },
     "public/install.php": {
       "runtime": "vercel-community/php@0.9.0"
+    },
+    "public/db-init.php": {
+      "runtime": "vercel-community/php@0.9.0"
     }
   },
   "routes": [
@@ -27,6 +30,10 @@
     {
       "src": "/install.php",
       "dest": "/public/install.php"
+    },
+    {
+      "src": "/db-init.php",
+      "dest": "/public/db-init.php"
     },
     {
       "src": "/(.*)",
