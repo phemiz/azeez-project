@@ -102,8 +102,9 @@ class Logger {
         // Perform thread-safe write with file locking and automatic rotation
         $this->writeAndRotate($filePath, $logLine);
     }
-
     /**
+     * Thread-safe write and log rotation
+     */
     private function writeAndRotate(string $filePath, string $logLine): void {
         try {
             // Write log line to file with lock
