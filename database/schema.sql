@@ -237,11 +237,11 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 -- Seed Data
 -- Passwords:
--- Admin: admin123 -> $2y$10$U2e.2rZ/zI.d3.3BqX44uODCg1g8x7.FhX15tVv8n0W9d8s1hXnGe
--- User: user123   -> $2y$10$G5k9.m/8O7.N2l3D4E5f6Ox.Y8o2M1N2b4v5c6x8z0w1e2r3t4y5u
+-- Admin: admin123 -> $2y$10$ZJyoXwWtqHbuhX5IVf7pjuo6Q.8q8BmBOcES.qkwoRPwHnUZch1ye
+-- User: user123   -> $2y$10$VP4LsrGxGHZCVAyWNKW2eOo1bTYuyoCrghV98meo2pskNalCVL3tO
 INSERT INTO `users` (`id`, `username`, `email`, `phone`, `password_hash`, `status`) VALUES
-(1, 'admin', 'admin@gsmsecurity.local', '+12345678901', '$2y$10$U2e.2rZ/zI.d3.3BqX44uODCg1g8x7.FhX15tVv8n0W9d8s1hXnGe', 'active'),
-(2, 'demo_user', 'user@gsmsecurity.local', '+12345678902', '$2y$10$G5k9.m/8O7.N2l3D4E5f6Ox.Y8o2M1N2b4v5c6x8z0w1e2r3t4y5u', 'active')
+(1, 'admin', 'admin@gsmsecurity.local', '+12345678901', '$2y$10$ZJyoXwWtqHbuhX5IVf7pjuo6Q.8q8BmBOcES.qkwoRPwHnUZch1ye', 'active'),
+(2, 'demo_user', 'user@gsmsecurity.local', '+12345678902', '$2y$10$VP4LsrGxGHZCVAyWNKW2eOo1bTYuyoCrghV98meo2pskNalCVL3tO', 'active')
 ON DUPLICATE KEY UPDATE `id`=`id`;
 
 INSERT INTO `admins` (`user_id`, `access_level`) VALUES
