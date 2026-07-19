@@ -32,9 +32,6 @@ class SessionMiddleware implements MiddlewareInterface {
                 header("Location: " . APP_URL . "/login");
                 exit;
             }
-
-            // Sync session variables back to the database sessions table
-            Session::writeSessionToDb();
         }
 
         // 3. Clean up expired DB sessions probabilistically (1% chance of executing on any request)
@@ -49,5 +46,6 @@ class SessionMiddleware implements MiddlewareInterface {
         }
 
         $next();
+        Session::writeSessionToDb();
     }
 }

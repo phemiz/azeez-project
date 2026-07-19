@@ -26,6 +26,24 @@ class Session {
             session_start();
         }
 
+        // --- CUSTOM DB SESSION RESTORE FOR STATELESS CONTAINERS ---
+        $sessionId = session_id();
+        if ($sessionId && empty($_SESSION)) {
+            try {
+                $db = \App\Core\Database::getInstance();
+                $dbSession = $db->fetch("SELECT payload FROM sessions WHERE id = ?", [$sessionId]);
+                if ($dbSession && isset($dbSession['payload'])) {
+                    $data = json_decode($dbSession['payload'], true);
+                    if (is_array($data)) {
+                        $_SESSION = $data;
+                    }
+                }
+            } catch (\Exception $e) {
+                // ignore
+            }
+        }
+        // ----------------------------------------------------------
+
         // Enforce session expiration timeout
         $timeout = SESSION_LIFETIME;
         if (self::has('user') && isset($_SESSION['user']['session_timeout_custom'])) {
@@ -71,9 +89,7 @@ class Session {
 
     public static function set(string $key, $value): void {
         $_SESSION[$key] = $value;
-        if ($key === 'user' || $key === 'mfa_verified') {
-            self::writeSessionToDb();
-        }
+        self::writeSessionToDb();
     }
 
     public static function get(string $key, $default = null) {
@@ -121,9 +137,6 @@ class Session {
     public static function writeSessionToDb(): void {
         $user = self::get('user');
         $userId = $user['id'] ?? null;
-        if (!$userId) {
-            return;
-        }
 
         try {
             $db = \App\Core\Database::getInstance();
