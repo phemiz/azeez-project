@@ -30,7 +30,9 @@ $detectedUrl = 'http://localhost/gsm-security';
 if (Env::get('APP_URL')) {
     $detectedUrl = Env::get('APP_URL');
 } else {
-    $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http');
+    $isHttps = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') 
+        || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
+    $protocol = $isHttps ? 'https' : 'http';
     $host = $_SERVER['HTTP_HOST'] ?? '';
     if ($host !== '') {
         $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
