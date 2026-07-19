@@ -1,0 +1,6 @@
+Options -Indexes
+RewriteEngine On
+
+# Redirect all requests (except those already targeting public/) into public/
+RewriteCond %{REQUEST_URI} !^/gsm-security/public/
+RewriteRule ^(.*)$ public/$1 [L,QSA]

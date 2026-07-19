@@ -1,0 +1,101 @@
+<?php
+namespace App\Core;
+
+use PDO;
+use PDOException;
+
+/**
+ * Core Database Wrapper using PDO
+ * Implements Singleton Pattern and enforces Prepared Statements
+ */
+class Database {
+    private static ?Database $instance = null;
+    private PDO $connection;
+
+    private function __construct() {
+        $dsn = sprintf(
+            "mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4",
+            DB_HOST,
+            DB_PORT,
+            DB_NAME
+        );
+
+        $options = [
+            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES   => false, // Enforce real prepared statements
+        ];
+
+        try {
+            $this->connection = new PDO($dsn, DB_USER, DB_PASS, $options);
+        } catch (PDOException $e) {
+            // Log connection failure securely and fail gracefully without disclosing credentials
+            error_log("Database connection failed: " . $e->getMessage());
+            http_response_code(500);
+            exit("Database service unavailable.");
+        }
+    }
+
+    public static function getInstance(): Database {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+
+    public function getConnection(): PDO {
+        return $this->connection;
+    }
+
+    /**
+     * Executes a query with prepared statement parameters.
+     */
+    public function query(string $sql, array $params = []): \PDOStatement {
+        try {
+            $stmt = $this->connection->prepare($sql);
+            $stmt->execute($params);
+            return $stmt;
+        } catch (PDOException $e) {
+            error_log("Query execution failed: " . $e->getMessage() . " | SQL: " . $sql);
+            throw $e;
+        }
+    }
+
+    /**
+     * Helper to fetch all rows
+     */
+    public function fetchAll(string $sql, array $params = []): array {
+        return $this->query($sql, $params)->fetchAll();
+    }
+
+    /**
+     * Helper to fetch a single row
+     */
+    public function fetch(string $sql, array $params = []): ?array {
+        $result = $this->query($sql, $params)->fetch();
+        return $result ?: null;
+    }
+
+    /**
+     * Helper to fetch a single column
+     */
+    public function fetchColumn(string $sql, array $params = [], int $columnIndex = 0) {
+        return $this->query($sql, $params)->fetchColumn($columnIndex);
+    }
+
+    public function lastInsertId(): string {
+        return $this->connection->lastInsertId();
+    }
+
+    public function beginTransaction(): bool {
+        return $this->connection->beginTransaction();
+    }
+
+    public function commit(): bool {
+        return $this->connection->commit();
+    }
+
+    public function rollBack(): bool {
+        return $this->connection->rollBack();
+    }
+}

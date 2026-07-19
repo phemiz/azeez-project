@@ -1,0 +1,186 @@
+/* --- GSM Guard Reusable CSS Components --- */
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Tokens - Primitive Core */
+  --primitive-green-500: #00FF41;
+  --primitive-green-950: #011605;
+  --primitive-slate-950: #000000;
+  --primitive-slate-900: #080808;
+  --primitive-slate-800: #0d0d0d;
+  --primitive-slate-700: #121212;
+  --primitive-slate-600: #181818;
+  --primitive-slate-500: #1f1f1f;
+  --primitive-slate-400: #888888;
+  --primitive-slate-200: #e0e0e0;
+  --primitive-slate-100: #ffffff;
+  --primitive-red-500: #FF3333;
+  --primitive-red-650: #8b0000;
+
+  /* Tokens - Semantic */
+  --color-background: var(--primitive-slate-950);
+  --color-surface: var(--primitive-slate-900);
+  --color-card: var(--primitive-slate-800);
+  --color-border: var(--primitive-slate-500);
+  --color-primary: var(--primitive-green-500);
+  --color-accent: var(--primitive-red-500);
+  --color-foreground: var(--primitive-slate-200);
+  --color-foreground-title: var(--primitive-slate-100);
+  --color-foreground-muted: var(--primitive-slate-400);
+  --color-ring: var(--primitive-green-500);
+}
+
+/* Light Mode Core Variable Mapping Override */
+.light-theme {
+  --color-background: #f8fafc;
+  --color-surface: #ffffff;
+  --color-card: #f1f5f9;
+  --color-border: #cbd5e1;
+  --color-primary: #15803d; /* Darker green for accessibility */
+  --color-accent: #dc2626;
+  --color-foreground: #334155;
+  --color-foreground-title: #0f172a;
+  --color-foreground-muted: #64748b;
+  --color-ring: #16a34a;
+}
+
+/* Global Font Setup */
+body {
+  font-family: 'Fira Sans', sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  transition: background-color 300ms ease, color 300ms ease;
+}
+
+code, pre, .mono-data {
+  font-family: 'Fira Code', monospace;
+}
+
+/* Cyber Glassmorphic Panel Cards */
+.cyber-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cyber-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.12);
+  transform: translateY(-2px);
+}
+
+/* Primary Matrix-themed CTAs */
+.btn-primary {
+  background: var(--color-primary);
+  color: #000000;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid var(--color-primary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.light-theme .btn-primary {
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 12px var(--color-primary);
+  opacity: 0.95;
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
+/* Secondary Actions - Outline styles */
+.btn-secondary {
+  background: transparent;
+  color: var(--color-foreground-title);
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 150ms ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(128, 128, 128, 0.05);
+  border-color: var(--color-primary);
+}
+
+/* Form Inputs */
+.cyber-input {
+  background: var(--color-surface);
+  color: var(--color-foreground-title);
+  border: 1px solid var(--color-border);
+  padding: 10px 16px;
+  border-radius: 8px;
+  width: 100%;
+  font-size: 14px;
+  outline: none;
+  transition: all 200ms ease;
+}
+
+.cyber-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(0, 255, 65, 0.15);
+}
+
+/* Security Alert Pulse Indicator */
+@keyframes alert-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 51, 51, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 51, 51, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 51, 51, 0); }
+}
+
+.animate-alert-pulse {
+  animation: alert-pulse 2s infinite;
+  border-color: var(--color-accent) !important;
+}
+
+/* Toast Notifications Stack Positioning */
+#toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.toast-box {
+  background: #0d0d0d;
+  color: #ffffff;
+  border-left: 4px solid var(--color-primary);
+  padding: 16px 24px;
+  border-radius: 6px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transform: translateX(120%);
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.toast-box.show {
+  transform: translateX(0);
+}
+
+.toast-error {
+  border-left-color: var(--color-accent);
+}

@@ -1,0 +1,26 @@
+Options -Indexes
+Options +FollowSymLinks
+
+RewriteEngine On
+
+# Base matches the path Apache sees after the root .htaccess rewrites into public/
+RewriteBase /gsm-security/public/
+
+# Serve real files and directories directly (assets: CSS, JS, images)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Route everything else through the front controller
+RewriteRule ^ index.php [QSA,L]
+
+# ── Security ──────────────────────────────────────────────
+# Block browser access to sensitive top-level directories
+# (they cannot be reached here, but belt-and-suspenders)
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always unset X-Powered-By
+</IfModule>
+
+ServerSignature Off

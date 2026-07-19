@@ -1,0 +1,29 @@
+# Apache & XAMPP Temporary files
+.htaccess_back
+backups/*.sql
+
+# Composer dependencies
+/vendor/
+
+# Environment configurations
+.env
+.env.local
+.env.*.local
+
+# Log files
+logs/*.log
+*.log
+
+# IDE config files
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
