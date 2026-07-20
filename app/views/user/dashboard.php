@@ -154,12 +154,12 @@ $securityScore = max(35, min(100, $securityScore));
             <!-- Tabs selection -->
             <div class="flex p-1.5 rounded-xl border" style="background-color: var(--color-surface); border-color: var(--color-border);">
                 <button onclick="switchTab('encrypt')" id="btn-tab-encrypt" title="Click to switch to the screen where you can encrypt your messages."
-                        class="flex-1 py-2 rounded-lg text-xs font-mono font-bold uppercase transition-all flex items-center justify-center gap-2" style="background-color: var(--color-primary); color: #000000;">
+                        class="flex-1 py-2 rounded-lg text-xs font-mono font-bold uppercase transition-all flex items-center justify-center gap-2 bg-indigo-600 text-white border border-indigo-600">
                     <i data-lucide="lock" class="w-4 h-4"></i>
                     <span>Encrypt Message</span>
                 </button>
                 <button onclick="switchTab('decrypt')" id="btn-tab-decrypt" title="Click to switch to the screen where you can decrypt messages you received."
-                        class="flex-1 py-2 rounded-lg text-xs font-mono font-bold uppercase transition-all flex items-center justify-center gap-2 text-slate-400 hover:text-white">
+                        class="flex-1 py-2 rounded-lg text-xs font-mono font-bold uppercase transition-all flex items-center justify-center gap-2 bg-cyan-50 text-cyan-700 border border-cyan-100 hover:bg-cyan-100">
                     <i data-lucide="unlock" class="w-4 h-4"></i>
                     <span>Decrypt Message</span>
                 </button>
@@ -446,13 +446,13 @@ function switchTab(tab) {
     const panelDecrypt = document.getElementById('panel-decrypt');
 
     if (tab === 'encrypt') {
-        btnEncrypt.className = "flex-1 py-2 rounded-lg text-xs font-mono font-bold uppercase transition-all flex items-center justify-center gap-2 bg-cyan-500 text-black";
-        btnDecrypt.className = "flex-1 py-2 rounded-lg text-xs font-mono font-bold uppercase transition-all flex items-center justify-center gap-2 text-slate-400 hover:text-white";
+        btnEncrypt.className = "flex-1 py-2 rounded-lg text-xs font-mono font-bold uppercase transition-all flex items-center justify-center gap-2 bg-indigo-600 text-white border border-indigo-600";
+        btnDecrypt.className = "flex-1 py-2 rounded-lg text-xs font-mono font-bold uppercase transition-all flex items-center justify-center gap-2 bg-cyan-50 text-cyan-700 border border-cyan-100 hover:bg-cyan-100";
         panelEncrypt.classList.remove('hidden');
         panelDecrypt.classList.add('hidden');
     } else {
-        btnDecrypt.className = "flex-1 py-2 rounded-lg text-xs font-mono font-bold uppercase transition-all flex items-center justify-center gap-2 bg-cyan-500 text-black";
-        btnEncrypt.className = "flex-1 py-2 rounded-lg text-xs font-mono font-bold uppercase transition-all flex items-center justify-center gap-2 text-slate-400 hover:text-white";
+        btnDecrypt.className = "flex-1 py-2 rounded-lg text-xs font-mono font-bold uppercase transition-all flex items-center justify-center gap-2 bg-cyan-500 text-white border border-cyan-500";
+        btnEncrypt.className = "flex-1 py-2 rounded-lg text-xs font-mono font-bold uppercase transition-all flex items-center justify-center gap-2 bg-indigo-50 text-indigo-700 border border-indigo-100 hover:bg-indigo-100";
         panelDecrypt.classList.remove('hidden');
         panelEncrypt.classList.add('hidden');
     }
