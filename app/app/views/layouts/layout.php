@@ -13,10 +13,10 @@ if (!defined('ENTRY_SECURE') && count(get_included_files()) === 1) {
     <title><?= htmlspecialchars($title ?? 'GSM Data Protection Platform') ?></title>
     <link rel="icon" type="image/svg+xml" href="<?= APP_URL ?>/favicon.svg">
     
-    <!-- Google Fonts (DM Sans & Playfair Display) -->
+    <!-- Google Fonts (Plus Jakarta Sans) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <!-- Components Custom styling and script -->
     <link rel="stylesheet" href="<?= APP_URL ?>/css/components.css">
@@ -30,19 +30,18 @@ if (!defined('ENTRY_SECURE') && count(get_included_files()) === 1) {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['DM Sans', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
                         mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
                         cyber: {
-                            black: '#202421',
-                            dark: '#faf9f5',
+                            black: '#0f172a',
+                            dark: '#f8fafc',
                             card: '#ffffff',
-                            glow: '#ee8067',
-                            emerald: '#88926a',
-                            alert: '#ee8067',
-                            warning: '#d8b46a'
+                            glow: '#4f46e5',
+                            emerald: '#059669',
+                            alert: '#dc2626',
+                            warning: '#cbd5e1'
                         }
                     }
                 }
@@ -61,22 +60,22 @@ if (!defined('ENTRY_SECURE') && count(get_included_files()) === 1) {
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
         }
         .cyber-glow-hover:hover {
-            box-shadow: 0 8px 24px rgba(238, 128, 103, 0.1);
+            box-shadow: 0 8px 24px var(--accent-glow);
             border-color: var(--color-primary);
         }
         .cyber-glow-emerald:hover {
-            box-shadow: 0 8px 24px rgba(136, 146, 106, 0.1);
-            border-color: #88926a;
+            box-shadow: 0 8px 24px rgba(5, 150, 105, 0.1);
+            border-color: var(--status-success);
         }
         /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: var(--paper);
+            background: var(--bg-main);
         }
         ::-webkit-scrollbar-thumb {
-            background: var(--line);
+            background: var(--border-color);
             border-radius: 3px;
         }
         ::-webkit-scrollbar-thumb:hover {

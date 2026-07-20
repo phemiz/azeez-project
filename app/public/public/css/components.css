@@ -1,48 +1,53 @@
 /* --- GSM Guard Reusable CSS Components --- */
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
-  /* Codex Heritage Palette Tokens */
-  --ink: #202421;
-  --muted: #72766e;
-  --line: #e8e6df;
-  --paper: #faf9f5;
-  --coral: #ee8067;
-  --olive: #88926a;
-  --blue: #8caeb8;
-  --gold: #d8b46a;
+  /* Crisp Light Modern SaaS Security Palette Tokens */
+  --bg-main: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-surface-hover: #f1f5f9;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+  --border-color: #e2e8f0;
+  --border-accent: #cbd5e1;
+  --accent-primary: #4f46e5;
+  --accent-hover: #4338ca;
+  --accent-glow: rgba(79, 70, 229, 0.2);
+  --status-success: #059669;
+  --status-alert: #dc2626;
 
-  /* Theme mappings */
-  --color-background: var(--paper);
-  --color-surface: #ffffff;
-  --color-card: #ffffff;
-  --color-border: var(--line);
-  --color-primary: var(--coral);
-  --color-accent: var(--coral);
-  --color-foreground: var(--muted);
-  --color-foreground-title: var(--ink);
-  --color-foreground-muted: var(--muted);
-  --color-ring: var(--coral);
+  /* Theme mappings for existing classes */
+  --color-background: var(--bg-main);
+  --color-surface: var(--bg-surface);
+  --color-card: var(--bg-surface);
+  --color-border: var(--border-color);
+  --color-primary: var(--accent-primary);
+  --color-accent: var(--status-alert);
+  --color-foreground: var(--text-secondary);
+  --color-foreground-title: var(--text-primary);
+  --color-foreground-muted: var(--text-secondary);
+  --color-ring: var(--accent-primary);
 }
 
-/* Override dark theme class behavior to keep unified heritage theme */
+/* Override dark theme class behavior to keep unified crisp SaaS theme */
 .dark, .light, .light-theme, .dark-theme {
-  --color-background: var(--paper);
-  --color-surface: #ffffff;
-  --color-card: #ffffff;
-  --color-border: var(--line);
-  --color-primary: var(--coral);
-  --color-accent: var(--coral);
-  --color-foreground: var(--muted);
-  --color-foreground-title: var(--ink);
-  --color-foreground-muted: var(--muted);
-  --color-ring: var(--coral);
+  --color-background: var(--bg-main);
+  --color-surface: var(--bg-surface);
+  --color-card: var(--bg-surface);
+  --color-border: var(--border-color);
+  --color-primary: var(--accent-primary);
+  --color-accent: var(--status-alert);
+  --color-foreground: var(--text-secondary);
+  --color-foreground-title: var(--text-primary);
+  --color-foreground-muted: var(--text-secondary);
+  --color-ring: var(--accent-primary);
 }
 
 /* Global Font Setup */
 body {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-family);
   background-color: var(--color-background);
   color: var(--color-foreground);
   transition: background-color 300ms ease, color 300ms ease;
@@ -53,7 +58,8 @@ code, pre, .mono-data {
 }
 
 h1, h2, h3, h4, h5, h6, .brand-title {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-family);
+  font-weight: 700;
 }
 
 /* Cyber Glassmorphic Panel Cards */
@@ -68,7 +74,7 @@ h1, h2, h3, h4, h5, h6, .brand-title {
 
 .cyber-card:hover {
   border-color: var(--color-primary);
-  box-shadow: 0 8px 24px rgba(238, 128, 103, 0.08);
+  box-shadow: 0 8px 24px var(--accent-glow);
   transform: translateY(-2px);
 }
 
@@ -88,7 +94,9 @@ h1, h2, h3, h4, h5, h6, .brand-title {
 }
 
 .btn-primary:hover {
-  box-shadow: 0 0 12px rgba(238, 128, 103, 0.3);
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  box-shadow: 0 0 12px var(--accent-glow);
   opacity: 0.95;
   transform: translateY(-1px);
 }
@@ -132,7 +140,7 @@ h1, h2, h3, h4, h5, h6, .brand-title {
 
 .cyber-input:focus {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px rgba(238, 128, 103, 0.15);
+  box-shadow: 0 0 0 2px var(--accent-glow);
 }
 
 /* Security Alert Pulse Indicator */
@@ -187,13 +195,13 @@ h1, h2, h3, h4, h5, h6, .brand-title {
   border: 2px solid var(--color-border) !important;
   color: var(--color-foreground-title) !important;
   transition: all 150ms ease-in-out;
-  font-family: 'DM Sans', sans-serif !important;
+  font-family: var(--font-family) !important;
   font-weight: bold;
 }
 
 .otp-digit:focus {
   border-color: var(--color-primary) !important;
-  box-shadow: 0 0 12px rgba(238, 128, 103, 0.25) !important;
+  box-shadow: 0 0 12px var(--accent-glow) !important;
   background-color: #ffffff !important;
 }
 
