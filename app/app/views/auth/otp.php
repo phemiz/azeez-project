@@ -31,19 +31,19 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
                 <label class="block text-center text-2xs font-bold uppercase tracking-wider mb-4" style="color: var(--color-primary);">Enter 6-Digit Verification Code</label>
                 
                 <div class="flex justify-center gap-2.5" id="otpContainer">
-                    <input type="text" maxlength="1" class="otp-digit w-11 h-12 bg-slate-900 border border-slate-800 rounded-xl text-center font-mono text-xl font-bold focus:outline-none focus:border-cyan-500 transition-all" style="background-color: var(--color-surface); border-color: var(--color-border); color: var(--color-primary);" />
-                    <input type="text" maxlength="1" class="otp-digit w-11 h-12 bg-slate-900 border border-slate-800 rounded-xl text-center font-mono text-xl font-bold focus:outline-none focus:border-cyan-500 transition-all" style="background-color: var(--color-surface); border-color: var(--color-border); color: var(--color-primary);" />
-                    <input type="text" maxlength="1" class="otp-digit w-11 h-12 bg-slate-900 border border-slate-800 rounded-xl text-center font-mono text-xl font-bold focus:outline-none focus:border-cyan-500 transition-all" style="background-color: var(--color-surface); border-color: var(--color-border); color: var(--color-primary);" />
-                    <input type="text" maxlength="1" class="otp-digit w-11 h-12 bg-slate-900 border border-slate-800 rounded-xl text-center font-mono text-xl font-bold focus:outline-none focus:border-cyan-500 transition-all" style="background-color: var(--color-surface); border-color: var(--color-border); color: var(--color-primary);" />
-                    <input type="text" maxlength="1" class="otp-digit w-11 h-12 bg-slate-900 border border-slate-800 rounded-xl text-center font-mono text-xl font-bold focus:outline-none focus:border-cyan-500 transition-all" style="background-color: var(--color-surface); border-color: var(--color-border); color: var(--color-primary);" />
-                    <input type="text" maxlength="1" class="otp-digit w-11 h-12 bg-slate-900 border border-slate-800 rounded-xl text-center font-mono text-xl font-bold focus:outline-none focus:border-cyan-500 transition-all" style="background-color: var(--color-surface); border-color: var(--color-border); color: var(--color-primary);" />
+                    <input type="text" maxlength="1" title="Enter the first digit of your 6-digit login code" class="otp-digit w-11 h-12 bg-slate-900 border border-slate-800 rounded-xl text-center font-mono text-xl font-bold focus:outline-none focus:border-cyan-500 transition-all" style="background-color: var(--color-surface); border-color: var(--color-border); color: var(--color-primary);" />
+                    <input type="text" maxlength="1" title="Enter the second digit of your 6-digit login code" class="otp-digit w-11 h-12 bg-slate-900 border border-slate-800 rounded-xl text-center font-mono text-xl font-bold focus:outline-none focus:border-cyan-500 transition-all" style="background-color: var(--color-surface); border-color: var(--color-border); color: var(--color-primary);" />
+                    <input type="text" maxlength="1" title="Enter the third digit of your 6-digit login code" class="otp-digit w-11 h-12 bg-slate-900 border border-slate-800 rounded-xl text-center font-mono text-xl font-bold focus:outline-none focus:border-cyan-500 transition-all" style="background-color: var(--color-surface); border-color: var(--color-border); color: var(--color-primary);" />
+                    <input type="text" maxlength="1" title="Enter the fourth digit of your 6-digit login code" class="otp-digit w-11 h-12 bg-slate-900 border border-slate-800 rounded-xl text-center font-mono text-xl font-bold focus:outline-none focus:border-cyan-500 transition-all" style="background-color: var(--color-surface); border-color: var(--color-border); color: var(--color-primary);" />
+                    <input type="text" maxlength="1" title="Enter the fifth digit of your 6-digit login code" class="otp-digit w-11 h-12 bg-slate-900 border border-slate-800 rounded-xl text-center font-mono text-xl font-bold focus:outline-none focus:border-cyan-500 transition-all" style="background-color: var(--color-surface); border-color: var(--color-border); color: var(--color-primary);" />
+                    <input type="text" maxlength="1" title="Enter the sixth digit of your 6-digit login code" class="otp-digit w-11 h-12 bg-slate-900 border border-slate-800 rounded-xl text-center font-mono text-xl font-bold focus:outline-none focus:border-cyan-500 transition-all" style="background-color: var(--color-surface); border-color: var(--color-border); color: var(--color-primary);" />
                 </div>
                 <!-- Hidden input carrying actual data -->
                 <input type="hidden" name="otp_code" id="otpCode" required />
             </div>
 
             <!-- Countdown Timer -->
-            <div id="timerContainer" class="text-xs text-center font-mono" style="color: var(--color-foreground-muted);">
+            <div id="timerContainer" title="This is how much time you have left to enter the code before it becomes invalid." class="text-xs text-center font-mono" style="color: var(--color-foreground-muted);">
                 Code expires in: <span id="timerText" style="color: var(--color-primary); font-weight: bold;">05:00</span>
             </div>
 
@@ -56,7 +56,7 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
             </div>
 
             <!-- Submit Button -->
-            <button type="submit" id="submitBtn" class="btn-primary w-full justify-center">
+            <button type="submit" id="submitBtn" title="Click to check your code and log into your account." class="btn-primary w-full justify-center">
                 <span>Log In</span>
                 <i data-lucide="unlock" class="w-4 h-4"></i>
             </button>
@@ -64,60 +64,60 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
 
         <div class="text-center mt-6 relative z-10 font-mono">
             <span class="text-xs" style="color: var(--color-foreground-muted);">Didn't receive code? </span>
-            <button id="resendOtp" class="text-xs hover:underline font-bold transition-colors cursor-pointer" style="color: var(--color-primary); background: none; border: none; padding: 0;">Resend Code</button>
+            <button id="resendOtp" title="Click here to send a brand new login code to your phone if you didn't get the first one." class="text-xs hover:underline font-bold transition-colors cursor-pointer" style="color: var(--color-primary); background: none; border: none; padding: 0;">Resend Code</button>
         </div>
     </div>
 
     <!-- Right Panel: Simulated GSM Handset (Developer Helper) -->
-    <div class="w-80 h-[500px] bg-slate-900 rounded-[36px] border-4 border-gray-800 relative shadow-2xl p-4 flex flex-col justify-between overflow-hidden" style="background-color: #0b0f19;">
-        <!-- Ear speaker -->
-        <div class="absolute top-2 left-1/2 transform -translate-x-1/2 w-28 h-4 bg-black rounded-full z-10 flex items-center justify-center space-x-2">
-            <div class="w-12 h-1 bg-gray-800 rounded-full"></div>
-            <div class="w-2.5 h-2.5 bg-gray-900 rounded-full"></div>
+    <div class="w-80 h-[500px] rounded-[36px] border-4 relative shadow-2xl p-3 flex flex-col justify-between overflow-hidden" title="This is a simulation of your phone showing the text message sent by the security system." style="background-color: #e2e8f0; border-color: #cbd5e1; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15), inset 0 0 10px rgba(0,0,0,0.1);">
+        <!-- Ear speaker / Notch -->
+        <div class="absolute top-2 left-1/2 transform -translate-x-1/2 w-32 h-4 bg-slate-800 rounded-full z-10 flex items-center justify-center space-x-2 shadow-inner">
+            <div class="w-12 h-1 bg-slate-600 rounded-full"></div>
+            <div class="w-2 h-2 bg-slate-700 rounded-full"></div>
         </div>
 
         <!-- Phone screen -->
-        <div class="flex-grow bg-slate-950 rounded-[24px] border border-gray-800 p-4 flex flex-col justify-between relative overflow-hidden" style="background-color: #030712; border-color: var(--color-border);">
+        <div class="flex-grow rounded-[28px] border p-4 flex flex-col justify-between relative overflow-hidden bg-gradient-to-b from-slate-50 via-blue-50 to-indigo-50 shadow-inner" style="border-color: #e2e8f0;">
             <!-- Glow background -->
-            <div class="absolute -top-12 -right-12 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl"></div>
+            <div class="absolute -top-12 -right-12 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl"></div>
 
             <!-- Phone Top Bar -->
-            <div class="flex justify-between items-center text-[10px] font-mono mt-1" style="color: var(--color-primary);">
-                <span id="phoneClock">14:45</span>
+            <div class="flex justify-between items-center text-[10px] font-semibold mt-1 text-slate-600">
+                <span id="phoneClock">20:56</span>
                 <div class="flex items-center space-x-1">
-                    <i data-lucide="signal" class="w-3 h-3 animate-pulse" style="color: var(--color-primary);"></i>
+                    <i data-lucide="signal" class="w-3 h-3 text-slate-600"></i>
                     <span>LTE</span>
-                    <i data-lucide="battery" class="w-3.5 h-3.5"></i>
+                    <i data-lucide="battery" class="w-3.5 h-3.5 text-slate-600"></i>
                 </div>
             </div>
 
             <!-- Simulated SMS Alert -->
             <div class="my-auto space-y-4 relative z-10">
-                <div class="bg-gray-900/90 border border-cyan-500/20 p-4 rounded-2xl shadow-lg animate-bounce" style="background-color: var(--color-surface); border-color: var(--color-border);">
+                <div class="bg-white/95 border border-slate-200/60 p-4 rounded-2xl animate-bounce" style="box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);">
                     <div class="flex items-center justify-between mb-2">
-                        <span class="text-[10px] font-bold tracking-wider flex items-center space-x-1" style="color: var(--color-primary);">
-                            <i data-lucide="message-square-code" class="w-3.5 h-3.5 mr-1"></i>
-                            GSM_NODE_SMS
+                        <span class="text-[10px] font-extrabold tracking-wider flex items-center space-x-1 text-slate-800">
+                            <i data-lucide="message-square-code" class="w-3.5 h-3.5 mr-1 text-indigo-600"></i>
+                            GSM Security Message
                         </span>
-                        <span class="text-[8px] font-mono" style="color: var(--color-foreground-muted);">Just Now</span>
+                        <span class="text-[8px] font-mono text-slate-400">Just Now</span>
                     </div>
-                    <p class="text-xs font-sans leading-relaxed" style="color: var(--color-foreground);">
-                        GSM-GUARD Warning: Your verification code is 
-                        <span id="phoneOtpText" class="font-mono font-bold text-sm tracking-wider underline" style="color: var(--color-primary);">
+                    <p class="text-xs font-sans leading-relaxed text-slate-600">
+                        GSM-GUARD Alert: Your login code is 
+                        <span id="phoneOtpText" class="font-mono font-bold text-sm tracking-wider underline text-indigo-600">
                             <?= htmlspecialchars($simulated_otp ?? '******') ?>
                         </span>. 
-                        Valid for 5 minutes.
+                        Works for 5 minutes.
                     </p>
                 </div>
 
                 <div class="text-center font-mono">
-                    <span class="text-[9px] uppercase tracking-widest block" style="color: var(--color-primary); opacity: 0.6;">Simulated GSM Link</span>
-                    <span class="text-[8px]" style="color: var(--color-foreground-muted);">Bypasses local hardware transceivers</span>
+                    <span class="text-[9px] uppercase tracking-widest block text-indigo-600 font-bold">Simulated Phone Link</span>
+                    <span class="text-[8px] text-slate-500">Works without real phone hardware</span>
                 </div>
             </div>
 
             <!-- Home Bar -->
-            <div class="w-20 h-1 bg-gray-800 rounded-full mx-auto mt-2"></div>
+            <div class="w-24 h-1 bg-slate-300 rounded-full mx-auto mt-2"></div>
         </div>
     </div>
 </div>
@@ -141,12 +141,30 @@ digits.forEach((digit, index) => {
             digits[index - 1].focus();
         }
     });
+
+    digit.addEventListener('paste', (e) => {
+        const pasteData = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '');
+        if (pasteData.length === 6) {
+            e.preventDefault();
+            digits.forEach((d, i) => {
+                d.value = pasteData[i];
+            });
+            updateHiddenValue();
+        }
+    });
 });
 
 function updateHiddenValue() {
     let combined = '';
     digits.forEach(d => combined += d.value);
     codeHidden.value = combined;
+
+    if (combined.length === 6) {
+        const submitBtn = document.getElementById('submitBtn');
+        if (submitBtn && !submitBtn.disabled) {
+            submitBtn.click();
+        }
+    }
 }
 
 // 5-Minute Countdown Timer
@@ -188,7 +206,7 @@ function startTimer() {
             // Disable entries
             digits.forEach(d => d.disabled = true);
             submitBtn.disabled = true;
-            ToastManager.show("Verification code expired. Please resend code.", "error");
+            ToastManager.show("Your login code has expired. Please ask for a new code.", "error");
         }
     }, 1000);
 }
@@ -253,7 +271,7 @@ document.getElementById('otpForm').addEventListener('submit', async function(e) 
     } catch (err) {
         alertBox.className = "p-4 rounded-xl text-xs font-mono font-medium border border-rose-500/30 bg-rose-500/10 text-rose-400 flex items-start space-x-2";
         alertIconContainer.innerHTML = '<i data-lucide="shield-alert" class="w-4 h-4"></i>';
-        alertMessage.textContent = "Network error. Server gateway unreachable.";
+        alertMessage.textContent = "Network error. Could not connect to the server.";
         alertBox.classList.remove('hidden');
         lucide.createIcons();
 
@@ -289,12 +307,12 @@ document.getElementById('resendOtp').addEventListener('click', async function(e)
             startTimer();
             digits[0].focus();
             
-            ToastManager.show("New verification signal transmitted.");
+            ToastManager.show("A new login code has been sent.");
         } else {
-            ToastManager.show(data.message || "Failed to re-transmit token.", "error");
+            ToastManager.show(data.message || "Could not send code.", "error");
         }
     } catch (err) {
-        ToastManager.show("Network error. Unable to re-transmit signals.", "error");
+        ToastManager.show("Network error. Could not send code.", "error");
     }
 });
 
