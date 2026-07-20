@@ -102,7 +102,7 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
                     <i data-lucide="shield-alert" class="text-rose-500 animate-pulse"></i>
                     <span>Execute Systematic Restoration</span>
                 </h3>
-                <p class="text-xs" style="color: var(--color-foreground-muted);">Database tables will be cleared and overridden. System settings and session hashes will revert to selected timestamp state.</p>
+                <p class="text-xs" style="color: var(--color-foreground-muted);">Database tables will be cleared and overridden. App settings and session hashes will revert to selected timestamp state.</p>
             </div>
 
             <!-- Progress Bar Card -->

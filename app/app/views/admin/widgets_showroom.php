@@ -66,7 +66,7 @@ use App\Core\Widget;
                 <?= Widget::quickAction('Payload Enveloping', APP_URL . '/encrypt-payload', 'lock', 'cyan') ?>
                 <?= Widget::quickAction('Decapsulate Cipher', APP_URL . '/decrypt-payload', 'unlock', 'emerald') ?>
                 <?= Widget::quickAction('Audit Alarms Feed', APP_URL . '/admin/threats', 'shield-alert', 'rose') ?>
-                <?= Widget::quickAction('System Settings', APP_URL . '/admin/settings', 'settings', 'amber') ?>
+                <?= Widget::quickAction('App Settings', APP_URL . '/admin/settings', 'settings', 'amber') ?>
             </div>
         </div>
 

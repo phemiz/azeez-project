@@ -22,43 +22,43 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
         <div class="hidden lg:flex flex-wrap gap-2">
             <a href="<?= APP_URL ?>/admin/users" class="btn-secondary text-xs py-1.5 px-3" title="Click to view and manage all user accounts.">
                 <i data-lucide="users" class="w-4 h-4"></i>
-                <span>User Directory</span>
+                <span>User List</span>
             </a>
             <a href="<?= APP_URL ?>/admin/threats" class="btn-secondary text-xs py-1.5 px-3" title="Click to view the central alarm feed for security alerts.">
                 <i data-lucide="shield-alert" class="w-4 h-4 text-red-500 animate-pulse"></i>
-                <span>Alerts Center</span>
+                <span>Notifications</span>
             </a>
             <a href="<?= APP_URL ?>/admin/behavior" class="btn-secondary text-xs py-1.5 px-3" title="Click to monitor user activities and identify unusual habits.">
                 <i data-lucide="activity" class="w-4 h-4"></i>
-                <span>User Behavior</span>
+                <span>User Activity</span>
             </a>
             <a href="<?= APP_URL ?>/admin/sessions" class="btn-secondary text-xs py-1.5 px-3" title="Click to view and end active user login sessions.">
                 <i data-lucide="key-round" class="w-4 h-4 text-cyan-400"></i>
-                <span>Active Sessions</span>
+                <span>Who's Online Now</span>
             </a>
             <a href="<?= APP_URL ?>/admin/reports/central" class="btn-secondary text-xs py-1.5 px-3" title="Click to generate and download system security reports.">
                 <i data-lucide="file-text" class="w-4 h-4"></i>
-                <span>Reports Control</span>
+                <span>Manage Reports</span>
             </a>
             <a href="<?= APP_URL ?>/admin/settings" class="btn-secondary text-xs py-1.5 px-3" title="Click to configure system settings and options.">
                 <i data-lucide="settings" class="w-4 h-4"></i>
-                <span>System Settings</span>
+                <span>App Settings</span>
             </a>
             <a href="<?= APP_URL ?>/admin/backups" class="btn-secondary text-xs py-1.5 px-3" title="Click to manage database backups and restore saved configurations.">
                 <i data-lucide="database-backup" class="w-4 h-4"></i>
-                <span>Backups & Recovery</span>
+                <span>Saved Copies & Restore</span>
             </a>
             <a href="<?= APP_URL ?>/admin/audit" class="btn-secondary text-xs py-1.5 px-3" title="Click to view the master log ledger of all events.">
                 <i data-lucide="file-check-2" class="w-4 h-4"></i>
-                <span>Activity History</span>
+                <span>Past Activity</span>
             </a>
             <a href="<?= APP_URL ?>/admin/analytics" class="btn-secondary text-xs py-1.5 px-3" title="Click to view visual charts and graphs of security alerts.">
                 <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
-                <span>Alert Analytics</span>
+                <span>Alert Trends</span>
             </a>
             <a href="<?= APP_URL ?>/admin/widgets" class="btn-secondary text-xs py-1.5 px-3" title="Click to view the showroom of UI cards and layout widgets.">
                 <i data-lucide="layout-template" class="w-4 h-4"></i>
-                <span>UI Cards</span>
+                <span>Display Cards</span>
             </a>
         </div>
         
@@ -76,43 +76,43 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
             <div id="adminNavDropdown" class="hidden absolute left-0 right-0 mt-2 p-3 rounded-2xl border z-50 shadow-2xl flex flex-col gap-1.5" style="background-color: var(--color-surface); border-color: var(--color-border);">
                 <a href="<?= APP_URL ?>/admin/users" class="flex items-center gap-3 p-2.5 rounded-lg text-xs hover:bg-slate-100 transition-colors" style="color: var(--color-foreground-title);">
                     <i data-lucide="users" class="w-4 h-4"></i>
-                    <span>User Directory</span>
+                    <span>User List</span>
                 </a>
                 <a href="<?= APP_URL ?>/admin/threats" class="flex items-center gap-3 p-2.5 rounded-lg text-xs hover:bg-slate-100 transition-colors" style="color: var(--color-foreground-title);">
                     <i data-lucide="shield-alert" class="w-4 h-4 text-red-500"></i>
-                    <span>Alerts Center</span>
+                    <span>Notifications</span>
                 </a>
                 <a href="<?= APP_URL ?>/admin/behavior" class="flex items-center gap-3 p-2.5 rounded-lg text-xs hover:bg-slate-100 transition-colors" style="color: var(--color-foreground-title);">
                     <i data-lucide="activity" class="w-4 h-4"></i>
-                    <span>User Behavior</span>
+                    <span>User Activity</span>
                 </a>
                 <a href="<?= APP_URL ?>/admin/sessions" class="flex items-center gap-3 p-2.5 rounded-lg text-xs hover:bg-slate-100 transition-colors" style="color: var(--color-foreground-title);">
                     <i data-lucide="key-round" class="w-4 h-4 text-cyan-400"></i>
-                    <span>Active Sessions</span>
+                    <span>Who's Online Now</span>
                 </a>
                 <a href="<?= APP_URL ?>/admin/reports/central" class="flex items-center gap-3 p-2.5 rounded-lg text-xs hover:bg-slate-100 transition-colors" style="color: var(--color-foreground-title);">
                     <i data-lucide="file-text" class="w-4 h-4"></i>
-                    <span>Reports Control</span>
+                    <span>Manage Reports</span>
                 </a>
                 <a href="<?= APP_URL ?>/admin/settings" class="flex items-center gap-3 p-2.5 rounded-lg text-xs hover:bg-slate-100 transition-colors" style="color: var(--color-foreground-title);">
                     <i data-lucide="settings" class="w-4 h-4"></i>
-                    <span>System Settings</span>
+                    <span>App Settings</span>
                 </a>
                 <a href="<?= APP_URL ?>/admin/backups" class="flex items-center gap-3 p-2.5 rounded-lg text-xs hover:bg-slate-100 transition-colors" style="color: var(--color-foreground-title);">
                     <i data-lucide="database-backup" class="w-4 h-4"></i>
-                    <span>Backups & Recovery</span>
+                    <span>Saved Copies & Restore</span>
                 </a>
                 <a href="<?= APP_URL ?>/admin/audit" class="flex items-center gap-3 p-2.5 rounded-lg text-xs hover:bg-slate-100 transition-colors" style="color: var(--color-foreground-title);">
                     <i data-lucide="file-check-2" class="w-4 h-4"></i>
-                    <span>Activity History</span>
+                    <span>Past Activity</span>
                 </a>
                 <a href="<?= APP_URL ?>/admin/analytics" class="flex items-center gap-3 p-2.5 rounded-lg text-xs hover:bg-slate-100 transition-colors" style="color: var(--color-foreground-title);">
                     <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
-                    <span>Alert Analytics</span>
+                    <span>Alert Trends</span>
                 </a>
                 <a href="<?= APP_URL ?>/admin/widgets" class="flex items-center gap-3 p-2.5 rounded-lg text-xs hover:bg-slate-100 transition-colors" style="color: var(--color-foreground-title);">
                     <i data-lucide="layout-template" class="w-4 h-4"></i>
-                    <span>UI Cards</span>
+                    <span>Display Cards</span>
                 </a>
             </div>
         </div>

@@ -13,59 +13,115 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center p-6 rounded-2xl border gap-4" style="background-color: var(--color-surface); border-color: var(--color-border);">
         <div>
             <h1 class="text-xl font-bold text-white flex items-center gap-2 font-mono uppercase">
-                <span>Security Administration Terminal</span>
+                <span>Security Control Terminal</span>
                 <span class="text-red-500 font-mono font-bold">[ROOT]</span>
             </h1>
-            <p class="text-xs mt-1" style="color: var(--color-foreground-muted);">Systems: Operational &middot; Database Backups Synchronized &middot; SIEM Alarms Active</p>
+            <p class="text-xs mt-1" style="color: var(--color-foreground-muted);">Systems: Running &middot; Database Backups Saved &middot; Security Alerts Active</p>
         </div>
-        <div class="flex flex-wrap gap-2">
-            <a href="<?= APP_URL ?>/admin/users" class="btn-secondary text-xs py-1.5 px-3">
+        <!-- Responsive navigation tabs for Desktop vs Mobile -->
+        <div class="hidden lg:flex flex-wrap gap-2">
+            <a href="<?= APP_URL ?>/admin/users" class="btn-secondary text-xs py-1.5 px-3" title="Click to view and manage all user accounts.">
                 <i data-lucide="users" class="w-4 h-4"></i>
-                <span>Operator Directory</span>
+                <span>User List</span>
             </a>
-            <a href="<?= APP_URL ?>/admin/threats" class="btn-secondary text-xs py-1.5 px-3">
+            <a href="<?= APP_URL ?>/admin/threats" class="btn-secondary text-xs py-1.5 px-3" title="Click to view the central alarm feed for security alerts.">
                 <i data-lucide="shield-alert" class="w-4 h-4 text-red-500 animate-pulse"></i>
-                <span>SIEM Center</span>
+                <span>Notifications</span>
             </a>
-            <a href="<?= APP_URL ?>/admin/behavior" class="btn-secondary text-xs py-1.5 px-3">
+            <a href="<?= APP_URL ?>/admin/behavior" class="btn-secondary text-xs py-1.5 px-3" title="Click to monitor user activities and identify unusual habits.">
                 <i data-lucide="activity" class="w-4 h-4"></i>
-                <span>Operator Behavior</span>
+                <span>User Activity</span>
             </a>
-            <a href="<?= APP_URL ?>/admin/sessions" class="btn-secondary text-xs py-1.5 px-3">
+            <a href="<?= APP_URL ?>/admin/sessions" class="btn-secondary text-xs py-1.5 px-3" title="Click to view and end active user login sessions.">
                 <i data-lucide="key-round" class="w-4 h-4 text-cyan-400"></i>
-                <span>Session Gating</span>
+                <span>Who's Online Now</span>
             </a>
-            <a href="<?= APP_URL ?>/admin/reports/central" class="btn-secondary text-xs py-1.5 px-3">
+            <a href="<?= APP_URL ?>/admin/reports/central" class="btn-secondary text-xs py-1.5 px-3" title="Click to generate and download system security reports.">
                 <i data-lucide="file-text" class="w-4 h-4"></i>
-                <span>Reports Engine</span>
+                <span>Manage Reports</span>
             </a>
-            <a href="<?= APP_URL ?>/admin/settings" class="btn-secondary text-xs py-1.5 px-3">
+            <a href="<?= APP_URL ?>/admin/settings" class="btn-secondary text-xs py-1.5 px-3" title="Click to configure system settings and options.">
                 <i data-lucide="settings" class="w-4 h-4"></i>
-                <span>System Settings</span>
+                <span>App Settings</span>
             </a>
-            <a href="<?= APP_URL ?>/admin/backups" class="btn-secondary text-xs py-1.5 px-3">
+            <a href="<?= APP_URL ?>/admin/backups" class="btn-secondary text-xs py-1.5 px-3" title="Click to manage database backups and restore saved configurations.">
                 <i data-lucide="database-backup" class="w-4 h-4"></i>
-                <span>Backups & Recovery</span>
+                <span>Saved Copies & Restore</span>
             </a>
-            <a href="<?= APP_URL ?>/admin/audit" class="btn-secondary text-xs py-1.5 px-3">
+            <a href="<?= APP_URL ?>/admin/audit" class="btn-secondary text-xs py-1.5 px-3" title="Click to view the master log ledger of all events.">
                 <i data-lucide="file-check-2" class="w-4 h-4"></i>
-                <span>Audit Trail</span>
+                <span>Past Activity</span>
             </a>
-            <a href="<?= APP_URL ?>/admin/analytics" class="btn-secondary text-xs py-1.5 px-3">
+            <a href="<?= APP_URL ?>/admin/analytics" class="btn-secondary text-xs py-1.5 px-3" title="Click to view visual charts and graphs of security alerts.">
                 <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
-                <span>SIEM Analytics</span>
+                <span>Alert Trends</span>
             </a>
-            <a href="<?= APP_URL ?>/admin/widgets" class="btn-secondary text-xs py-1.5 px-3">
+            <a href="<?= APP_URL ?>/admin/widgets" class="btn-secondary text-xs py-1.5 px-3" title="Click to view the showroom of UI cards and layout widgets.">
                 <i data-lucide="layout-template" class="w-4 h-4"></i>
-                <span>UI Widgets</span>
+                <span>Display Cards</span>
             </a>
+        </div>
+        
+        <!-- Mobile/Tablet Dropdown Select Navigation -->
+        <div class="lg:hidden w-full relative">
+            <button onclick="var d=document.getElementById('adminNavDropdown'); var c=document.getElementById('adminNavChevron'); if(d.classList.contains('hidden')){d.classList.remove('hidden');c.style.transform='rotate(180deg)';}else{d.classList.add('hidden');c.style.transform='';}" id="adminNavBtn" class="btn-secondary w-full justify-between text-xs py-2 px-4">
+                <span class="flex items-center gap-2">
+                    <i data-lucide="menu" class="w-4 h-4"></i>
+                    <span>Terminal Navigation Menu</span>
+                </span>
+                <svg id="adminNavChevron" class="h-4 w-4 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+            </button>
+            <div id="adminNavDropdown" class="hidden absolute left-0 right-0 mt-2 p-3 rounded-2xl border z-50 shadow-2xl flex flex-col gap-1.5" style="background-color: var(--color-surface); border-color: var(--color-border);">
+                <a href="<?= APP_URL ?>/admin/users" class="flex items-center gap-3 p-2.5 rounded-lg text-xs hover:bg-slate-100 transition-colors" style="color: var(--color-foreground-title);">
+                    <i data-lucide="users" class="w-4 h-4"></i>
+                    <span>User List</span>
+                </a>
+                <a href="<?= APP_URL ?>/admin/threats" class="flex items-center gap-3 p-2.5 rounded-lg text-xs hover:bg-slate-100 transition-colors" style="color: var(--color-foreground-title);">
+                    <i data-lucide="shield-alert" class="w-4 h-4 text-red-500"></i>
+                    <span>Notifications</span>
+                </a>
+                <a href="<?= APP_URL ?>/admin/behavior" class="flex items-center gap-3 p-2.5 rounded-lg text-xs hover:bg-slate-100 transition-colors" style="color: var(--color-foreground-title);">
+                    <i data-lucide="activity" class="w-4 h-4"></i>
+                    <span>User Activity</span>
+                </a>
+                <a href="<?= APP_URL ?>/admin/sessions" class="flex items-center gap-3 p-2.5 rounded-lg text-xs hover:bg-slate-100 transition-colors" style="color: var(--color-foreground-title);">
+                    <i data-lucide="key-round" class="w-4 h-4 text-cyan-400"></i>
+                    <span>Who's Online Now</span>
+                </a>
+                <a href="<?= APP_URL ?>/admin/reports/central" class="flex items-center gap-3 p-2.5 rounded-lg text-xs hover:bg-slate-100 transition-colors" style="color: var(--color-foreground-title);">
+                    <i data-lucide="file-text" class="w-4 h-4"></i>
+                    <span>Manage Reports</span>
+                </a>
+                <a href="<?= APP_URL ?>/admin/settings" class="flex items-center gap-3 p-2.5 rounded-lg text-xs hover:bg-slate-100 transition-colors" style="color: var(--color-foreground-title);">
+                    <i data-lucide="settings" class="w-4 h-4"></i>
+                    <span>App Settings</span>
+                </a>
+                <a href="<?= APP_URL ?>/admin/backups" class="flex items-center gap-3 p-2.5 rounded-lg text-xs hover:bg-slate-100 transition-colors" style="color: var(--color-foreground-title);">
+                    <i data-lucide="database-backup" class="w-4 h-4"></i>
+                    <span>Saved Copies & Restore</span>
+                </a>
+                <a href="<?= APP_URL ?>/admin/audit" class="flex items-center gap-3 p-2.5 rounded-lg text-xs hover:bg-slate-100 transition-colors" style="color: var(--color-foreground-title);">
+                    <i data-lucide="file-check-2" class="w-4 h-4"></i>
+                    <span>Past Activity</span>
+                </a>
+                <a href="<?= APP_URL ?>/admin/analytics" class="flex items-center gap-3 p-2.5 rounded-lg text-xs hover:bg-slate-100 transition-colors" style="color: var(--color-foreground-title);">
+                    <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
+                    <span>Alert Trends</span>
+                </a>
+                <a href="<?= APP_URL ?>/admin/widgets" class="flex items-center gap-3 p-2.5 rounded-lg text-xs hover:bg-slate-100 transition-colors" style="color: var(--color-foreground-title);">
+                    <i data-lucide="layout-template" class="w-4 h-4"></i>
+                    <span>Display Cards</span>
+                </a>
+            </div>
         </div>
     </div>
 
     <!-- Administrative Statistics Cards -->
     <div class="grid grid-cols-2 lg:grid-cols-5 gap-6">
         <!-- Total Users -->
-        <div class="cyber-card flex items-center justify-between">
+        <div class="cyber-card flex items-center justify-between" title="The total number of registered users and operators on the platform.">
             <div>
                 <span class="text-[10px] font-bold block uppercase tracking-wider mb-1" style="color: var(--color-foreground-muted);">Operators</span>
                 <span class="text-2xl font-bold text-white font-mono"><?= $metrics['total_users'] ?></span>
@@ -76,7 +132,7 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
         </div>
 
         <!-- Total Admins -->
-        <div class="cyber-card flex items-center justify-between">
+        <div class="cyber-card flex items-center justify-between" title="The total number of users with admin power on the platform.">
             <div>
                 <span class="text-[10px] font-bold block uppercase tracking-wider mb-1" style="color: var(--color-foreground-muted);">Admins</span>
                 <span class="text-2xl font-bold text-red-500 font-mono"><?= $metrics['total_admins'] ?></span>
@@ -87,7 +143,7 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
         </div>
 
         <!-- AI Threats -->
-        <div class="cyber-card flex items-center justify-between">
+        <div class="cyber-card flex items-center justify-between" title="The total number of network threats found by the AI engine.">
             <div>
                 <span class="text-[10px] font-bold block uppercase tracking-wider mb-1" style="color: var(--color-foreground-muted);">AI Threats</span>
                 <span class="text-2xl font-bold text-white font-mono"><?= $metrics['total_threats'] ?></span>
@@ -98,7 +154,7 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
         </div>
 
         <!-- Critical Alarms -->
-        <div class="cyber-card flex items-center justify-between">
+        <div class="cyber-card flex items-center justify-between" title="The number of active high or critical security alerts.">
             <div>
                 <span class="text-[10px] font-bold block uppercase tracking-wider mb-1" style="color: var(--color-foreground-muted);">Alarms</span>
                 <span class="text-2xl font-bold text-rose-500 font-mono animate-pulse"><?= $metrics['critical_alerts'] ?></span>
@@ -109,7 +165,7 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
         </div>
 
         <!-- Traced Envelopes -->
-        <div class="cyber-card flex items-center justify-between">
+        <div class="cyber-card flex items-center justify-between" title="The total number of encrypted messages locked on the platform.">
             <div>
                 <span class="text-[10px] font-bold block uppercase tracking-wider mb-1" style="color: var(--color-foreground-muted);">Envelopes</span>
                 <span class="text-2xl font-bold text-white font-mono"><?= $metrics['encrypted_count'] ?></span>
@@ -123,10 +179,10 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
     <!-- Layout: System Health, Recent Registrations & Logins -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- System Health Baseline -->
-        <div class="cyber-card p-6 space-y-4">
+        <div class="cyber-card p-6 space-y-4" title="Shows if the database, logs folder, backups folder, and firewall are running correctly.">
             <h3 class="text-xs font-bold uppercase tracking-wider text-white font-mono flex items-center gap-1.5 border-b pb-3" style="border-color: var(--color-border);">
                 <i data-lucide="heart" class="w-4.5 h-4.5 text-red-500 animate-pulse"></i>
-                <span>Node System Health</span>
+                <span>System Health</span>
             </h3>
             
             <div class="space-y-3 font-mono text-2xs">
@@ -135,25 +191,25 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
                     <span class="text-emerald-400 font-bold"><?= $systemHealth['database'] ?></span>
                 </div>
                 <div class="flex justify-between border-b pb-2" style="border-color: var(--color-border);">
-                    <span style="color: var(--color-foreground-muted);">LOGS WRITE CAP:</span>
+                    <span style="color: var(--color-foreground-muted);">LOGS WRITE CAPABILITY:</span>
                     <span class="<?= $systemHealth['logs_directory'] === 'WRITABLE' ? 'text-emerald-400' : 'text-rose-500' ?> font-bold"><?= $systemHealth['logs_directory'] ?></span>
                 </div>
                 <div class="flex justify-between border-b pb-2" style="border-color: var(--color-border);">
-                    <span style="color: var(--color-foreground-muted);">BACKUPS WRITE CAP:</span>
+                    <span style="color: var(--color-foreground-muted);">BACKUPS WRITE CAPABILITY:</span>
                     <span class="<?= $systemHealth['backups_directory'] === 'WRITABLE' ? 'text-emerald-400' : 'text-rose-500' ?> font-bold"><?= $systemHealth['backups_directory'] ?></span>
                 </div>
                 <div class="flex justify-between">
-                    <span style="color: var(--color-foreground-muted);">WAF HEADERS GATING:</span>
-                    <span class="text-emerald-400 font-bold">SECURED</span>
+                    <span style="color: var(--color-foreground-muted);">FIREWALL SECURITY:</span>
+                    <span class="text-emerald-400 font-bold">SAFE</span>
                 </div>
             </div>
         </div>
 
         <!-- Recent Logins -->
-        <div class="cyber-card p-6 space-y-4">
+        <div class="cyber-card p-6 space-y-4" title="List of users who logged in recently and their IP addresses.">
             <h3 class="text-xs font-bold uppercase tracking-wider text-white font-mono flex items-center gap-1.5 border-b pb-3" style="border-color: var(--color-border);">
                 <i data-lucide="history" class="w-4.5 h-4.5 text-cyan-400"></i>
-                <span>Recent Operator Logins</span>
+                <span>Recent Logins</span>
             </h3>
             
             <div class="space-y-3 font-mono text-2xs">
@@ -171,7 +227,7 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
         </div>
 
         <!-- Recent Registrations -->
-        <div class="cyber-card p-6 space-y-4">
+        <div class="cyber-card p-6 space-y-4" title="List of newly created user accounts on this system.">
             <h3 class="text-xs font-bold uppercase tracking-wider text-white font-mono flex items-center gap-1.5 border-b pb-3" style="border-color: var(--color-border);">
                 <i data-lucide="user-plus" class="w-4.5 h-4.5 text-emerald-400"></i>
                 <span>Recent Registrations</span>
@@ -198,7 +254,7 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
         <!-- Left: Threat Chart & User Management -->
         <div class="space-y-8 xl:col-span-1">
             <!-- Threat Vector Doughnut -->
-            <div class="cyber-card p-6">
+            <div class="cyber-card p-6" title="A chart showing the breakdown of different types of threats.">
                 <h3 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2 font-mono mb-4">
                     <i data-lucide="bar-chart-3" class="w-4 h-4" style="color: var(--color-primary);"></i>
                     <span>Threat Vector Analytics</span>
@@ -214,10 +270,10 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
             </div>
 
             <!-- Operator Accounts Control -->
-            <div class="cyber-card p-6 space-y-4">
+            <div class="cyber-card p-6 space-y-4" title="Manage status options and roles of user accounts.">
                 <h3 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2 font-mono border-b pb-3" style="border-color: var(--color-border);">
                     <i data-lucide="user-cog" class="w-4 h-4" style="color: var(--color-primary);"></i>
-                    <span>Operator Accounts Control</span>
+                    <span>User Accounts Control</span>
                 </h3>
 
                 <div class="space-y-3 overflow-y-auto max-h-[300px]">
@@ -237,6 +293,7 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
                             <!-- Suspension button -->
                             <?php if ($u['id'] !== $user['id']): ?>
                                 <button onclick="toggleUserStatus(<?= $u['id'] ?>, '<?= $u['status'] === 'active' ? 'suspend' : 'activate' ?>')"
+                                        title="<?= $u['status'] === 'active' ? 'Click to freeze this account so the user cannot log in.' : 'Click to unfreeze this account so the user can log in again.' ?>"
                                         class="py-1 px-2.5 rounded font-semibold text-[10px] cursor-pointer transition-all border <?= $u['status'] === 'active' ? 'border-rose-500/30 hover:bg-rose-500/20 text-rose-400 bg-rose-500/5' : 'border-emerald-500/30 hover:bg-emerald-500/20 text-emerald-400 bg-emerald-500/5' ?>">
                                     <?= $u['status'] === 'active' ? 'Suspend' : 'Activate' ?>
                                 </button>
@@ -252,19 +309,19 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
         <!-- Middle & Right: System Auditing Trail & SQL Backups -->
         <div class="space-y-8 xl:col-span-2">
             <!-- Database Backup and Disaster Recovery -->
-            <div class="cyber-card p-6 space-y-4">
+            <div class="cyber-card p-6 space-y-4" title="Manage database backups and restore configurations from saved snapshots.">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-3 gap-2" style="border-color: var(--color-border);">
                     <div>
                         <h3 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2 font-mono">
                             <i data-lucide="database-backup" class="w-4.5 h-4.5" style="color: var(--color-primary);"></i>
-                            <span>Database Backup & Restoration</span>
+                            <span>Database Backups</span>
                         </h3>
-                        <span class="text-[9px]" style="color: var(--color-foreground-muted);">Trigger hot backups and restoration SQL points</span>
+                        <span class="text-[9px]" style="color: var(--color-foreground-muted);">Create database backups and restore saved data</span>
                     </div>
 
-                    <button onclick="triggerBackup()" class="btn-primary text-xs py-2 px-4 cursor-pointer">
+                    <button onclick="triggerBackup()" title="Click to create a new backup copy of all data in the database." class="btn-primary text-xs py-2 px-4 cursor-pointer">
                         <i data-lucide="plus-circle" class="w-4 h-4"></i>
-                        <span>Generate SQL Snapshot</span>
+                        <span>Create Backup</span>
                     </button>
                 </div>
 
@@ -280,6 +337,7 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
                                     <span class="text-[9px] block mt-1" style="color: var(--color-foreground-muted);"><?= $b['created_at'] ?> &middot; <?= $b['size'] ?></span>
                                 </div>
                                 <button onclick="triggerRestore('<?= htmlspecialchars($b['filename']) ?>')"
+                                        title="Click to overwrite the current database with the data in this backup snapshot."
                                         class="btn-secondary text-[9px] py-1 px-2.5 cursor-pointer">
                                     Restore
                                 </button>
@@ -290,9 +348,9 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
             </div>
 
             <!-- Master Activity Log Audit Trail -->
-            <div class="cyber-card p-6 space-y-4">
+            <div class="cyber-card p-6 space-y-4" title="A list of all actions performed by users and the system.">
                 <h3 class="text-xs font-bold uppercase tracking-wider text-white flex items-center justify-between font-mono">
-                    <span>Master Audit Trail Ledger</span>
+                    <span>Master Activity History</span>
                     <i data-lucide="newspaper" class="w-4 h-4" style="color: var(--color-primary);"></i>
                 </h3>
 
@@ -300,12 +358,13 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
                     <table class="w-full text-left text-xs border-collapse" style="color: var(--color-foreground);">
                         <thead>
                             <tr class="border-b font-mono text-[10px]" style="border-color: var(--color-border); color: var(--color-primary);">
-                                <th class="pb-2 font-medium">Timestamp</th>
-                                <th class="pb-2 font-medium">Operator</th>
-                                <th class="pb-2 font-medium">Event</th>
+                                <th class="pb-2 font-medium">User ID</th>
+                                <th class="pb-2 font-medium">Username</th>
+                                <th class="pb-2 font-medium">Activity Performed</th>
+                                <th class="pb-2 font-medium">Date</th>
+                                <th class="pb-2 font-medium">Time</th>
                                 <th class="pb-2 font-medium">IP Address</th>
-                                <th class="pb-2 font-medium text-center">AI Risk</th>
-                                <th class="pb-2 font-medium">Mitigation Classification</th>
+                                <th class="pb-2 font-medium">System Status</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y" style="divide-color: var(--color-border);">
@@ -316,12 +375,16 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
                                     elseif ($log['risk_score'] >= 30) $riskColor = 'text-amber-500';
                                 ?>
                                 <tr class="hover:bg-slate-800/10 transition-colors text-gray-300">
-                                    <td class="py-3 font-mono text-[10px]" style="color: var(--color-foreground-muted);"><?= $log['created_at'] ?></td>
+                                    <td class="py-3 font-mono text-[10px] text-white"><?= htmlspecialchars($log['user_id'] ?? 'SYSTEM') ?></td>
                                     <td class="py-3 font-mono font-bold text-white"><?= htmlspecialchars($log['username'] ?? 'SYSTEM') ?></td>
                                     <td class="py-3 font-semibold" style="color: var(--color-foreground-title);"><?= htmlspecialchars($log['action']) ?></td>
-                                    <td class="py-3 font-mono" style="color: var(--color-foreground-muted);"><?= $log['ip_address'] ?></td>
-                                    <td class="py-3 text-center <?= $riskColor ?> font-mono"><?= $log['risk_score'] ?>%</td>
-                                    <td class="py-3" style="color: var(--color-foreground-title);"><?= htmlspecialchars($log['threat_classification']) ?></td>
+                                    <td class="py-3 font-mono text-[10px]" style="color: var(--color-foreground-muted);"><?= date('Y-m-d', strtotime($log['created_at'])) ?></td>
+                                    <td class="py-3 font-mono text-[10px]" style="color: var(--color-foreground-muted);"><?= date('H:i:s', strtotime($log['created_at'])) ?></td>
+                                    <td class="py-3 font-mono" style="color: var(--color-foreground-muted);"><?= htmlspecialchars($log['ip_address'] ?? 'N/A') ?></td>
+                                    <td class="py-3" style="color: var(--color-foreground-title);">
+                                        <span class="<?= $riskColor ?>"><?= htmlspecialchars($log['threat_classification']) ?></span>
+                                        <span class="text-3xs font-mono opacity-50">(<?= $log['risk_score'] ?>% Risk)</span>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -335,7 +398,7 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
 <script>
 // Toggle suspension action
 async function toggleUserStatus(userId, action) {
-    if (!confirm(`Confirm account status override for user ID: ${userId}?`)) {
+    if (!confirm(`Confirm status change for user ID: ${userId}?`)) {
         return;
     }
 
@@ -381,13 +444,13 @@ async function triggerBackup() {
             alert('Backup failed: ' + (data.message || 'Error occurred'));
         }
     } catch(e) {
-        alert('Database snapshot network execution failure.');
+        alert('Backup failed due to network error.');
     }
 }
 
 // Restore Snapshot
 async function triggerRestore(filename) {
-    if (!confirm(`CAUTION: Restoring will overwrite existing tables with data from snapshot "${filename}". Confirm database roll back?`)) {
+    if (!confirm(`CAUTION: Restoring will overwrite current data with the backup "${filename}". Confirm database roll back?`)) {
         return;
     }
 

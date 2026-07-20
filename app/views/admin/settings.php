@@ -11,7 +11,7 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
     <!-- Header -->
     <div class="flex items-center justify-between pb-4 border-b border-slate-800" style="border-color: var(--color-border);">
         <div>
-            <h1 class="text-xl font-bold text-white font-mono uppercase">System Settings Console</h1>
+            <h1 class="text-xl font-bold text-white font-mono uppercase">App Settings Console</h1>
             <span class="text-xs" style="color: var(--color-foreground-muted);">Modify global system thresholds, security baselines, and communication channels</span>
         </div>
         <a href="<?= APP_URL ?>/admin" class="btn-secondary text-xs py-1.5 px-3">
