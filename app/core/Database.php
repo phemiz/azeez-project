@@ -28,6 +28,22 @@ class Database {
 
         try {
             $this->connection = new PDO($dsn, DB_USER, DB_PASS, $options);
+
+            // Auto-heal: Ensure activity_logs has the required columns if they are missing
+            try {
+                $check = $this->connection->query("SHOW COLUMNS FROM `activity_logs` LIKE 'risk_score'");
+                if ($check && $check->rowCount() === 0) {
+                    $this->connection->exec("
+                        ALTER TABLE `activity_logs` 
+                        ADD COLUMN `risk_score` INT NOT NULL DEFAULT 0,
+                        ADD COLUMN `threat_classification` VARCHAR(100) NOT NULL DEFAULT 'Normal',
+                        ADD COLUMN `severity` VARCHAR(15) NOT NULL DEFAULT 'low',
+                        ADD COLUMN `threat_details` TEXT DEFAULT NULL
+                    ");
+                }
+            } catch (\Exception $ex) {
+                // Silently ignore if table doesn't exist yet (e.g. before initial migration)
+            }
         } catch (PDOException $e) {
             // Log connection failure securely and fail gracefully without disclosing credentials
             error_log("Database connection failed: " . $e->getMessage());
