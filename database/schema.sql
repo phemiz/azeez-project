@@ -245,11 +245,13 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- User: user123   -> $2y$10$VP4LsrGxGHZCVAyWNKW2eOo1bTYuyoCrghV98meo2pskNalCVL3tO
 INSERT INTO `users` (`id`, `username`, `email`, `phone`, `password_hash`, `status`) VALUES
 (1, 'admin', 'admin@gsmsecurity.local', '+12345678901', '$2y$10$ZJyoXwWtqHbuhX5IVf7pjuo6Q.8q8BmBOcES.qkwoRPwHnUZch1ye', 'active'),
-(2, 'demo_user', 'user@gsmsecurity.local', '+12345678902', '$2y$10$VP4LsrGxGHZCVAyWNKW2eOo1bTYuyoCrghV98meo2pskNalCVL3tO', 'active')
+(2, 'demo_user', 'user@gsmsecurity.local', '+12345678902', '$2y$10$VP4LsrGxGHZCVAyWNKW2eOo1bTYuyoCrghV98meo2pskNalCVL3tO', 'active'),
+(3, 'super', 'super@gsmsecurity.local', '+12345678903', '$2y$10$nJDIIvtHNOt.jXjZhenRoepyWNwCLV9anPuAfd1GnbzKxflzrAE/m', 'active')
 ON DUPLICATE KEY UPDATE `id`=`id`;
 
 INSERT INTO `admins` (`user_id`, `access_level`) VALUES
-(1, 'root')
+(1, 'root'),
+(3, 'root')
 ON DUPLICATE KEY UPDATE `user_id`=`user_id`;
 
 INSERT INTO `system_settings` (`setting_key`, `setting_value`) VALUES

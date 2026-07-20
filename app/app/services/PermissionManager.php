@@ -24,6 +24,10 @@ class PermissionManager {
             return false;
         }
 
+        if ($user['role'] === 'super') {
+            return true;
+        }
+
         return $this->roleManager->hasPermission($user['role'], $permission);
     }
 }

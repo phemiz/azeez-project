@@ -6,7 +6,7 @@ if (!defined('ENTRY_SECURE')) {
 use App\Core\Session;
 
 $user = Session::get('user');
-$isAdmin = $user && ($user['role'] === 'admin');
+$isAdmin = $user && ($user['role'] === 'admin' || $user['role'] === 'super');
 $activeUri = $_SERVER['REQUEST_URI'] ?? '/';
 ?>
 <!-- Sidebar Navigation Partial -->
@@ -74,7 +74,7 @@ $activeUri = $_SERVER['REQUEST_URI'] ?? '/';
             <?php endif; ?>
             <div class="flex flex-col">
                 <span class="text-xs font-semibold" style="color: var(--color-foreground-title);"><?= htmlspecialchars($user['username'] ?? 'Operator') ?></span>
-                <span class="text-2xs font-mono uppercase" style="color: var(--color-primary);"><?= $isAdmin ? 'SecAdmin' : 'SecUser' ?></span>
+                <span class="text-2xs font-mono uppercase" style="color: var(--color-primary);"><?= ($user['role'] ?? '') === 'super' ? 'SuperAdmin' : ($isAdmin ? 'SecAdmin' : 'SecUser') ?></span>
             </div>
         </a>
         

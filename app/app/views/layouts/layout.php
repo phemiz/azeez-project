@@ -116,7 +116,7 @@ if (!defined('ENTRY_SECURE') && count(get_included_files()) === 1) {
                         <span>Portal</span>
                     </a>
                     
-                    <?php if ($currUser['role'] === 'admin'): ?>
+                    <?php if ($currUser['role'] === 'admin' || $currUser['role'] === 'super'): ?>
                         <a href="<?= APP_URL ?>/admin" class="text-sm font-medium text-gray-300 hover:text-emerald-400 flex items-center space-x-1.5 transition-colors">
                             <i data-lucide="terminal" class="w-4 h-4"></i>
                             <span>Admin Terminal</span>
