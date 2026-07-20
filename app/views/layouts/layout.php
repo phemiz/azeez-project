@@ -6,16 +6,16 @@ if (!defined('ENTRY_SECURE') && count(get_included_files()) === 1) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($title ?? 'GSM Data Protection Platform') ?></title>
     
-    <!-- Google Fonts (Outfit & JetBrains Mono for secure keys) -->
+    <!-- Google Fonts (DM Sans & Playfair Display) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <!-- Components Custom styling and script -->
     <link rel="stylesheet" href="<?= APP_URL ?>/css/components.css">
@@ -29,18 +29,19 @@ if (!defined('ENTRY_SECURE') && count(get_included_files()) === 1) {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Outfit', 'sans-serif'],
+                        sans: ['DM Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
                         mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
                         cyber: {
-                            black: '#030712',
-                            dark: '#0b0f19',
-                            card: '#111827',
-                            glow: '#06b6d4',
-                            emerald: '#10b981',
-                            alert: '#f43f5e',
-                            warning: '#f59e0b'
+                            black: '#202421',
+                            dark: '#faf9f5',
+                            card: '#ffffff',
+                            glow: '#ee8067',
+                            emerald: '#88926a',
+                            alert: '#ee8067',
+                            warning: '#d8b46a'
                         }
                     }
                 }
@@ -54,32 +55,31 @@ if (!defined('ENTRY_SECURE') && count(get_included_files()) === 1) {
             color: var(--color-foreground-title);
         }
         .cyber-panel {
-            background: rgba(17, 24, 39, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(6, 182, 212, 0.15);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
         }
         .cyber-glow-hover:hover {
-            box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
-            border-color: rgba(6, 182, 212, 0.6);
+            box-shadow: 0 8px 24px rgba(238, 128, 103, 0.1);
+            border-color: var(--color-primary);
         }
         .cyber-glow-emerald:hover {
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
-            border-color: rgba(16, 185, 129, 0.6);
+            box-shadow: 0 8px 24px rgba(136, 146, 106, 0.1);
+            border-color: #88926a;
         }
         /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: #030712;
+            background: var(--paper);
         }
         ::-webkit-scrollbar-thumb {
-            background: #1f2937;
+            background: var(--line);
             border-radius: 3px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #06b6d4;
+            background: var(--color-primary);
         }
     </style>
 
