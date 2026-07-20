@@ -32,7 +32,7 @@ class Database {
             // Log connection failure securely and fail gracefully without disclosing credentials
             error_log("Database connection failed: " . $e->getMessage());
             http_response_code(500);
-            exit("Database service unavailable.");
+            exit("Database service unavailable. Details: " . $e->getMessage());
         }
     }
 
