@@ -92,51 +92,51 @@ if (!defined('ENTRY_SECURE') && count(get_included_files()) === 1) {
 <body class="min-h-screen flex flex-col justify-between overflow-x-hidden selection:bg-cyan-500/30 selection:text-cyan-200">
 
     <!-- Header Navigation -->
-    <header class="border-b border-cyan-500/10 bg-cyber-dark/80 backdrop-blur-md sticky top-0 z-50">
+    <header class="border-b border-slate-200/80 bg-white/90 backdrop-blur-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <!-- Logo Section -->
-            <div class="flex items-center space-x-3">
-                <div class="bg-cyan-500/10 p-2 rounded-lg border border-cyan-500/30 animate-pulse">
-                    <i data-lucide="shield-alert" class="w-6 h-6 text-cyan-400"></i>
+            <div class="flex items-center space-x-2 shrink-0">
+                <div class="bg-cyan-50 p-1.5 rounded-lg border border-cyan-200">
+                    <i data-lucide="shield-alert" class="w-5 h-5 text-cyan-600"></i>
                 </div>
                 <div>
-                    <span class="font-bold text-lg tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">
+                    <span class="font-bold text-sm sm:text-base tracking-wider text-slate-800">
                         GSM GUARD
                     </span>
-                    <span class="text-[10px] block text-cyan-500 font-mono tracking-widest uppercase">AI Safety System</span>
+                    <span class="text-[8px] sm:text-[9px] block text-cyan-600 font-mono tracking-widest uppercase leading-none mt-0.5">AI Safety</span>
                 </div>
             </div>
 
             <!-- Navigation Links -->
             <?php if (\App\Core\Session::has('user') && \App\Core\Session::get('mfa_verified') === true): ?>
                 <?php $currUser = \App\Core\Session::get('user'); ?>
-                <nav class="flex items-center space-x-6">
-                    <a href="<?= APP_URL ?>/dashboard" class="text-sm font-medium text-gray-300 hover:text-cyan-400 flex items-center space-x-1.5 transition-colors">
-                        <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
-                        <span>Dashboard</span>
+                <nav class="flex items-center space-x-2 sm:space-x-4">
+                    <a href="<?= APP_URL ?>/dashboard" class="text-xs sm:text-sm font-semibold text-slate-600 hover:text-indigo-650 flex items-center gap-1.5 p-1.5 sm:p-2 rounded-lg transition-all" title="Dashboard">
+                        <i data-lucide="layout-dashboard" class="w-4 h-4 text-slate-500"></i>
+                        <span class="hidden md:inline">Dashboard</span>
                     </a>
                     
                     <?php if ($currUser['role'] === 'admin' || $currUser['role'] === 'super'): ?>
-                        <a href="<?= APP_URL ?>/admin" class="text-sm font-medium text-gray-300 hover:text-emerald-400 flex items-center space-x-1.5 transition-colors">
-                            <i data-lucide="terminal" class="w-4 h-4"></i>
-                            <span>Admin Panel</span>
+                        <a href="<?= APP_URL ?>/admin" class="text-xs sm:text-sm font-semibold text-slate-600 hover:text-indigo-650 flex items-center gap-1.5 p-1.5 sm:p-2 rounded-lg transition-all" title="Admin Panel">
+                            <i data-lucide="terminal" class="w-4 h-4 text-slate-500"></i>
+                            <span class="hidden md:inline">Admin Panel</span>
                         </a>
                     <?php endif; ?>
 
-                    <div class="border-l border-gray-800 h-6"></div>
+                    <div class="border-l border-slate-200 h-5 hidden sm:block"></div>
 
                     <!-- User Badges -->
-                    <div class="flex items-center space-x-3">
-                        <div class="text-right hidden sm:block">
-                            <span class="text-xs text-gray-400 block font-medium">Logged in as</span>
-                            <span class="text-sm text-cyan-400 font-mono font-bold"><?= htmlspecialchars($currUser['username']) ?></span>
+                    <div class="flex items-center space-x-2">
+                        <div class="text-right hidden lg:block">
+                            <span class="text-[9px] text-gray-400 block leading-none font-medium mb-0.5">Operator</span>
+                            <span class="text-xs text-cyan-600 font-mono font-bold"><?= htmlspecialchars($currUser['username']) ?></span>
                         </div>
-                        <span class="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold tracking-wider uppercase <?= $currUser['role'] === 'admin' ? 'bg-rose-500/15 text-rose-400 border border-rose-500/30' : 'bg-cyan-500/15 text-cyan-400 border border-cyan-500/30' ?>">
+                        <span class="px-2 py-0.5 rounded-full text-[9px] font-mono font-extrabold tracking-wider uppercase <?= $currUser['role'] === 'admin' ? 'bg-red-50 text-red-700 border border-red-200/50' : 'bg-cyan-50 text-cyan-700 border border-cyan-200/50' ?>">
                             <?= $currUser['role'] ?>
                         </span>
                         
                         <!-- Logout Action -->
-                        <a href="<?= APP_URL ?>/logout" class="bg-red-50 text-red-650 border border-red-100 hover:bg-red-500 hover:text-white hover:border-red-500 p-2 rounded-lg transition-all" title="Logout">
+                        <a href="<?= APP_URL ?>/logout" class="bg-red-50 text-red-650 border border-red-100 hover:bg-red-500 hover:text-white hover:border-red-500 p-1.5 sm:p-2 rounded-lg transition-all" title="Logout">
                             <i data-lucide="log-out" class="w-4 h-4"></i>
                         </a>
                     </div>
