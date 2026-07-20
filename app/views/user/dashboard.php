@@ -264,6 +264,27 @@ $securityScore = max(35, min(100, $securityScore));
                     <input type="hidden" name="csrf_token" value="<?= $csrfToken ?>">
 
                     <div>
+                        <label class="block text-2xs font-bold uppercase tracking-wider mb-1.5" style="color: var(--color-primary);">Select Pre-configured Key & Salt Envelope</label>
+                        <select id="decryptEnvelopeSelector" onchange="selectDecryptEnvelope(this.value)" class="cyber-input py-2 text-xs font-mono" style="background-color: var(--color-surface); border-color: var(--color-border); color: var(--color-foreground-title);">
+                            <option value="">-- Enter Key & Salt Manually --</option>
+                            <?php foreach ($messages as $msg): ?>
+                                <?php 
+                                    $label = ($msg['sender_id'] == $user['id']) ? "Sent to " . $msg['recipient'] : "Rcvd from " . ($msg['sender_username'] ?? 'System');
+                                    $label .= " (" . date('H:i m-d', strtotime($msg['created_at'])) . ") - " . substr($msg['iv'], 0, 8) . "...";
+                                ?>
+                                <option value="<?= htmlspecialchars(json_encode([
+                                    'ciphertext' => $msg['encrypted_payload'],
+                                    'iv'         => $msg['iv'],
+                                    'salt'       => $msg['salt'],
+                                    'signature'  => $msg['signature']
+                                ])) ?>">
+                                    <?= htmlspecialchars($label) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <div>
                         <label class="block text-2xs font-bold uppercase tracking-wider mb-1.5" style="color: var(--color-primary);">Encrypted Message Text</label>
                         <textarea name="ciphertext" rows="2" required placeholder="Paste encrypted message here" title="Paste the encrypted message text (ciphertext) you received here." class="cyber-input font-mono text-xs"></textarea>
                     </div>
@@ -341,22 +362,22 @@ $securityScore = max(35, min(100, $securityScore));
         <!-- Right Panel: Activity Logs & AI Reports -->
         <div class="space-y-6">
             <!-- AI Recommendations Card (Dynamic) -->
-            <div id="aiWarningCard" class="cyber-card bg-cyan-500/5 space-y-3 relative overflow-hidden" title="Tips and analysis from our system checking for network trackers and cell anomalies.">
+            <div id="aiWarningCard" class="cyber-card bg-cyan-50 space-y-3 relative overflow-hidden border border-cyan-200/50" title="Tips and analysis from our system checking for network trackers and cell anomalies.">
                 <!-- Overlay glow -->
                 <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-full blur-xl pointer-events-none"></div>
 
                 <div class="flex items-center gap-2">
-                    <div class="bg-cyan-500/10 p-2 rounded-lg border border-cyan-500/30">
-                        <i data-lucide="brain-circuit" class="w-5 h-5 text-cyan-400"></i>
+                    <div class="bg-cyan-100 p-2 rounded-lg border border-cyan-300">
+                        <i data-lucide="brain-circuit" class="w-5 h-5 text-cyan-600"></i>
                     </div>
                     <div>
-                        <h3 class="text-xs font-bold text-white uppercase tracking-wider font-mono">AI Safety Tips</h3>
+                        <h3 class="text-xs font-bold uppercase tracking-wider font-mono" style="color: var(--color-foreground-title);">AI Safety Tips</h3>
                         <span class="text-[10px] block" style="color: var(--color-foreground-muted);">Real-time threat checking</span>
                     </div>
                 </div>
 
                 <div class="space-y-2" id="aiReportBox">
-                    <p class="text-xs leading-relaxed font-mono" style="color: var(--color-primary);">
+                    <p class="text-xs leading-relaxed font-mono" style="color: var(--color-foreground-title);">
                         State: Normal. Network checks show no fake cell towers or active silent tracking messages. Messages locked in this session are safe.
                     </p>
                 </div>
@@ -364,7 +385,7 @@ $securityScore = max(35, min(100, $securityScore));
 
             <!-- Active Security Alarms Feed -->
             <div class="cyber-card space-y-4" title="Active alerts and warnings about your account security or network status.">
-                <h3 class="text-xs font-bold uppercase tracking-wider text-white flex items-center justify-between font-mono">
+                <h3 class="text-xs font-bold uppercase tracking-wider flex items-center justify-between font-mono" style="color: var(--color-foreground-title);">
                     <span>Security Alerts</span>
                     <i data-lucide="shield-alert" class="w-4 h-4 text-rose-500 animate-pulse"></i>
                 </h3>
@@ -375,17 +396,17 @@ $securityScore = max(35, min(100, $securityScore));
                     <?php else: ?>
                         <?php foreach ($alerts as $alert): ?>
                             <?php 
-                                $sevColor = 'text-blue-400 border-blue-500/20 bg-blue-500/5';
-                                if ($alert['severity'] === 'critical') $sevColor = 'text-red-500 border-red-500/20 bg-red-500/5';
-                                elseif ($alert['severity'] === 'high') $sevColor = 'text-red-400 border-red-400/20 bg-red-400/5';
-                                elseif ($alert['severity'] === 'medium') $sevColor = 'text-amber-500 border-amber-500/20 bg-amber-500/5';
+                                $sevColor = 'text-blue-700 border-blue-200 bg-blue-50';
+                                if ($alert['severity'] === 'critical') $sevColor = 'text-red-700 border-red-200 bg-red-50';
+                                elseif ($alert['severity'] === 'high') $sevColor = 'text-red-650 border-red-150 bg-red-50';
+                                elseif ($alert['severity'] === 'medium') $sevColor = 'text-amber-700 border-amber-200 bg-amber-50';
                             ?>
                             <div class="p-3 rounded-xl border flex flex-col gap-1 font-mono text-[10px] <?= $sevColor ?>">
                                 <div class="flex justify-between items-center">
-                                    <span class="font-bold uppercase tracking-widest">[<?= htmlspecialchars($alert['severity']) ?>]</span>
-                                    <span class="opacity-60"><?= date('H:i m-d', strtotime($alert['created_at'])) ?></span>
+                                    <span class="font-extrabold uppercase tracking-widest">[<?= htmlspecialchars($alert['severity']) ?>]</span>
+                                    <span class="opacity-75"><?= date('H:i m-d', strtotime($alert['created_at'])) ?></span>
                                 </div>
-                                <p class="text-[11px] font-sans leading-relaxed text-gray-200"><?= htmlspecialchars($alert['message']) ?></p>
+                                <p class="text-[11px] font-sans leading-relaxed" style="color: var(--color-foreground-title);"><?= htmlspecialchars($alert['message']) ?></p>
                             </div>
                         <?php endforeach; ?>
                     <?php endif; ?>
@@ -394,7 +415,7 @@ $securityScore = max(35, min(100, $securityScore));
 
             <!-- Activity Logs Panel -->
             <div class="cyber-card space-y-4" title="A list of recent actions on your account and their security risk scores.">
-                <h3 class="text-xs font-bold uppercase tracking-wider text-white flex items-center justify-between font-mono">
+                <h3 class="text-xs font-bold uppercase tracking-wider flex items-center justify-between font-mono" style="color: var(--color-foreground-title);">
                     <span>Recent Events</span>
                     <i data-lucide="history" class="w-4 h-4" style="color: var(--color-primary);"></i>
                 </h3>
@@ -610,6 +631,18 @@ function loadLogAiDetails(logJson) {
         </p>
         <span class="text-[8px] font-mono block mt-1" style="color: var(--color-foreground-muted);">${log.user_agent}</span>
     `;
+}
+
+function selectDecryptEnvelope(jsonStr) {
+    if (!jsonStr) {
+        const form = document.getElementById('decryptForm');
+        form.querySelector('[name="ciphertext"]').value = '';
+        form.querySelector('[name="iv"]').value = '';
+        form.querySelector('[name="salt"]').value = '';
+        form.querySelector('[name="signature"]').value = '';
+        return;
+    }
+    populateDecryptEnvelope(jsonStr);
 }
 
 function populateDecryptEnvelope(jsonStr) {

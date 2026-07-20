@@ -29,6 +29,27 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
                     <input type="hidden" name="csrf_token" value="<?= $csrfToken ?>">
 
                     <div>
+                        <label class="block text-2xs font-bold uppercase tracking-wider mb-1.5" style="color: var(--color-primary);">Select Pre-configured Key & Salt Envelope</label>
+                        <select id="decryptEnvelopeSelector" onchange="selectDecryptEnvelope(this.value)" class="cyber-input py-2 text-xs font-mono" style="background-color: var(--color-surface); border-color: var(--color-border); color: var(--color-foreground-title);">
+                            <option value="">-- Enter Key & Salt Manually --</option>
+                            <?php foreach ($messages as $msg): ?>
+                                <?php 
+                                    $label = ($msg['sender_id'] == $user['id']) ? "Sent to " . $msg['recipient'] : "Rcvd from " . ($msg['sender_username'] ?? 'System');
+                                    $label .= " (" . date('H:i m-d', strtotime($msg['created_at'])) . ") - " . substr($msg['iv'], 0, 8) . "...";
+                                ?>
+                                <option value="<?= htmlspecialchars(json_encode([
+                                    'ciphertext' => $msg['encrypted_payload'],
+                                    'iv'         => $msg['iv'],
+                                    'salt'       => $msg['salt'],
+                                    'signature'  => $msg['signature']
+                                ])) ?>">
+                                    <?= htmlspecialchars($label) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <div>
                         <label class="block text-2xs font-bold uppercase tracking-wider mb-1.5" style="color: var(--color-primary);">Base64 Ciphertext Block</label>
                         <textarea name="ciphertext" id="input-ciphertext" rows="3" required placeholder="Paste base64 ciphertext payload block..." class="cyber-input font-mono text-xs"></textarea>
                     </div>
@@ -74,7 +95,7 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
         <div class="space-y-6">
             <div class="cyber-card space-y-4">
                 <div class="flex items-center justify-between border-b pb-3" style="border-color: var(--color-border);">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-white font-mono">Sent Message History</h3>
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-white font-mono">Available Envelopes Ledger</h3>
                     <i data-lucide="folder-git" class="w-4 h-4" style="color: var(--color-primary);"></i>
                 </div>
 
@@ -94,7 +115,11 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
                                  class="p-3 rounded-lg border hover:bg-slate-800/10 cursor-pointer transition-all duration-150 space-y-1 font-mono text-[10px]" 
                                  style="border-color: var(--color-border); background-color: rgba(0,0,0,0.05);">
                                 <div class="flex justify-between items-center text-white">
-                                    <span class="font-bold">TO: <?= htmlspecialchars($msg['recipient']) ?></span>
+                                    <?php if ($msg['sender_id'] == $user['id']): ?>
+                                        <span class="font-bold text-cyan-400">SENT TO: <?= htmlspecialchars($msg['recipient']) ?></span>
+                                    <?php else: ?>
+                                        <span class="font-bold text-emerald-400">RCVD FROM: <?= htmlspecialchars($msg['sender_username'] ?? 'System') ?></span>
+                                    <?php endif; ?>
                                     <span style="color: var(--color-foreground-muted);"><?= date('H:i m-d', strtotime($msg['created_at'])) ?></span>
                                 </div>
                                 <div class="truncate" style="color: var(--color-primary);"><?= substr($msg['encrypted_payload'], 0, 32) ?>...</div>
@@ -108,6 +133,17 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
 </div>
 
 <script>
+function selectDecryptEnvelope(jsonStr) {
+    if (!jsonStr) {
+        document.getElementById('input-ciphertext').value = '';
+        document.getElementById('input-iv').value = '';
+        document.getElementById('input-salt').value = '';
+        document.getElementById('input-signature').value = '';
+        return;
+    }
+    populateEnvelope(jsonStr);
+}
+
 // Populates decryption inputs from history selection
 function populateEnvelope(jsonStr) {
     try {

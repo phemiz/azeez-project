@@ -29,6 +29,27 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
                     <input type="hidden" name="csrf_token" value="<?= $csrfToken ?>">
 
                     <div>
+                        <label class="block text-2xs font-bold uppercase tracking-wider mb-1.5" style="color: var(--color-primary);">Select Pre-configured Key & Salt Envelope</label>
+                        <select id="decryptEnvelopeSelector" onchange="selectDecryptEnvelope(this.value)" class="cyber-input py-2 text-xs font-mono" style="background-color: var(--color-surface); border-color: var(--color-border); color: var(--color-foreground-title);">
+                            <option value="">-- Enter Key & Salt Manually --</option>
+                            <?php foreach ($messages as $msg): ?>
+                                <?php 
+                                    $label = ($msg['sender_id'] == $user['id']) ? "Sent to " . $msg['recipient'] : "Rcvd from " . ($msg['sender_username'] ?? 'System');
+                                    $label .= " (" . date('H:i m-d', strtotime($msg['created_at'])) . ") - " . substr($msg['iv'], 0, 8) . "...";
+                                ?>
+                                <option value="<?= htmlspecialchars(json_encode([
+                                    'ciphertext' => $msg['encrypted_payload'],
+                                    'iv'         => $msg['iv'],
+                                    'salt'       => $msg['salt'],
+                                    'signature'  => $msg['signature']
+                                ])) ?>">
+                                    <?= htmlspecialchars($label) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <div>
                         <label class="block text-2xs font-bold uppercase tracking-wider mb-1.5" style="color: var(--color-primary);">Base64 Ciphertext Block</label>
                         <textarea name="ciphertext" id="input-ciphertext" rows="3" required placeholder="Paste base64 ciphertext payload block..." class="cyber-input font-mono text-xs"></textarea>
                     </div>
@@ -112,6 +133,17 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
 </div>
 
 <script>
+function selectDecryptEnvelope(jsonStr) {
+    if (!jsonStr) {
+        document.getElementById('input-ciphertext').value = '';
+        document.getElementById('input-iv').value = '';
+        document.getElementById('input-salt').value = '';
+        document.getElementById('input-signature').value = '';
+        return;
+    }
+    populateEnvelope(jsonStr);
+}
+
 // Populates decryption inputs from history selection
 function populateEnvelope(jsonStr) {
     try {
