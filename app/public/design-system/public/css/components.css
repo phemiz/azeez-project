@@ -50,6 +50,7 @@ body {
   font-family: var(--font-family);
   background-color: var(--color-background);
   color: var(--color-foreground);
+  font-size: 17px; /* Scaled up by step 0.5 for high readability */
   transition: background-color 300ms ease, color 300ms ease;
 }
 
