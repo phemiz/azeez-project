@@ -136,7 +136,7 @@ if (!defined('ENTRY_SECURE') && count(get_included_files()) === 1) {
                         </span>
                         
                         <!-- Logout Action -->
-                        <a href="<?= APP_URL ?>/logout" class="bg-gray-800 hover:bg-red-500 hover:text-white hover:border-red-500 p-2 rounded-lg border border-gray-700 transition-all" title="Logout Securely">
+                        <a href="<?= APP_URL ?>/logout" class="bg-red-50 text-red-650 border border-red-100 hover:bg-red-500 hover:text-white hover:border-red-500 p-2 rounded-lg transition-all" title="Logout Securely">
                             <i data-lucide="log-out" class="w-4 h-4"></i>
                         </a>
                     </div>
