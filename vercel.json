@@ -22,6 +22,14 @@
       "dest": "/public/final_aligned_project_document.pdf"
     },
     {
+      "src": "/favicon.svg",
+      "dest": "/public/favicon.svg"
+    },
+    {
+      "src": "/favicon.ico",
+      "dest": "/public/favicon.svg"
+    },
+    {
       "src": "/install.php",
       "dest": "/api/install.php"
     },

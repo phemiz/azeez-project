@@ -11,6 +11,7 @@ if (!defined('ENTRY_SECURE') && count(get_included_files()) === 1) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($title ?? 'GSM Data Protection Platform') ?></title>
+    <link rel="icon" type="image/svg+xml" href="<?= APP_URL ?>/favicon.svg">
     
     <!-- Google Fonts (DM Sans & Playfair Display) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
