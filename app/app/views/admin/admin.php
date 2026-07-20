@@ -278,14 +278,14 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
 
                 <div class="space-y-3 overflow-y-auto max-h-[300px]">
                     <?php foreach ($users as $u): ?>
-                        <div class="p-3 border rounded-xl flex items-center justify-between text-xs font-mono" style="background-color: rgba(0,0,0,0.15); border-color: var(--color-border);">
+                        <div class="p-3.5 border rounded-xl flex items-center justify-between text-xs font-mono" style="background-color: var(--bg-main); border-color: var(--color-border);">
                             <div>
-                                <span class="text-white font-bold block"><?= htmlspecialchars($u['username']) ?></span>
-                                <span class="text-[10px] block" style="color: var(--color-foreground-muted);"><?= htmlspecialchars($u['email']) ?></span>
-                                <span class="px-2 py-0.5 rounded text-[8px] font-bold tracking-wider inline-block mt-1 <?= $u['role'] === 'admin' ? 'bg-red-500/10 text-red-400' : 'bg-cyan-500/10 text-cyan-400' ?>">
+                                <span class="font-bold block text-sm" style="color: var(--color-foreground-title);"><?= htmlspecialchars($u['username']) ?></span>
+                                <span class="text-[10px] block mt-0.5" style="color: var(--color-foreground-muted);"><?= htmlspecialchars($u['email']) ?></span>
+                                <span class="px-2 py-0.5 rounded text-[8px] font-bold tracking-wider inline-block mt-1.5 <?= $u['role'] === 'admin' ? 'bg-red-50 text-red-700 border border-red-200/50' : 'bg-indigo-50 text-indigo-700 border border-indigo-200/50' ?>">
                                     <?= strtoupper($u['role']) ?>
                                 </span>
-                                <span class="px-2 py-0.5 rounded text-[8px] font-bold tracking-wider inline-block mt-1 <?= $u['status'] === 'active' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400 animate-pulse' ?>">
+                                <span class="px-2 py-0.5 rounded text-[8px] font-bold tracking-wider inline-block mt-1.5 <?= $u['status'] === 'active' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200/50' : 'bg-rose-50 text-rose-700 border border-rose-200/50 animate-pulse' ?>">
                                     <?= strtoupper($u['status']) ?>
                                 </span>
                             </div>
@@ -294,11 +294,11 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
                             <?php if ($u['id'] !== $user['id']): ?>
                                 <button onclick="toggleUserStatus(<?= $u['id'] ?>, '<?= $u['status'] === 'active' ? 'suspend' : 'activate' ?>')"
                                         title="<?= $u['status'] === 'active' ? 'Click to freeze this account so the user cannot log in.' : 'Click to unfreeze this account so the user can log in again.' ?>"
-                                        class="py-1 px-2.5 rounded font-semibold text-[10px] cursor-pointer transition-all border <?= $u['status'] === 'active' ? 'border-rose-500/30 hover:bg-rose-500/20 text-rose-400 bg-rose-500/5' : 'border-emerald-500/30 hover:bg-emerald-500/20 text-emerald-400 bg-emerald-500/5' ?>">
+                                        class="py-1.5 px-3 rounded font-bold text-[10px] cursor-pointer transition-all border <?= $u['status'] === 'active' ? 'border-rose-300 hover:bg-rose-500 hover:text-white text-rose-700 bg-rose-50' : 'border-emerald-300 hover:bg-emerald-500 hover:text-white text-emerald-700 bg-emerald-50' ?>">
                                     <?= $u['status'] === 'active' ? 'Suspend' : 'Activate' ?>
                                 </button>
                             <?php else: ?>
-                                <span class="text-[9px] font-mono italic" style="color: var(--color-foreground-muted);">ROOT</span>
+                                <span class="text-[9px] font-bold tracking-wider uppercase border border-slate-350 px-2 py-0.5 rounded bg-slate-100" style="color: var(--color-foreground-muted);">ROOT</span>
                             <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
@@ -374,14 +374,14 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
                                     if ($log['risk_score'] >= 70) $riskColor = 'text-rose-500 font-bold';
                                     elseif ($log['risk_score'] >= 30) $riskColor = 'text-amber-500';
                                 ?>
-                                <tr class="hover:bg-slate-800/10 transition-colors text-gray-300">
-                                    <td class="py-3 font-mono text-[10px] text-white"><?= htmlspecialchars($log['user_id'] ?? 'SYSTEM') ?></td>
-                                    <td class="py-3 font-mono font-bold text-white"><?= htmlspecialchars($log['username'] ?? 'SYSTEM') ?></td>
-                                    <td class="py-3 font-semibold" style="color: var(--color-foreground-title);"><?= htmlspecialchars($log['action']) ?></td>
-                                    <td class="py-3 font-mono text-[10px]" style="color: var(--color-foreground-muted);"><?= date('Y-m-d', strtotime($log['created_at'])) ?></td>
-                                    <td class="py-3 font-mono text-[10px]" style="color: var(--color-foreground-muted);"><?= date('H:i:s', strtotime($log['created_at'])) ?></td>
-                                    <td class="py-3 font-mono" style="color: var(--color-foreground-muted);"><?= htmlspecialchars($log['ip_address'] ?? 'N/A') ?></td>
-                                    <td class="py-3" style="color: var(--color-foreground-title);">
+                                <tr class="hover:bg-slate-100/50 transition-colors text-slate-700 border-b border-slate-100">
+                                    <td class="py-3.5 font-mono text-xs" style="color: var(--color-foreground-title);"><?= htmlspecialchars($log['user_id'] ?? 'SYSTEM') ?></td>
+                                    <td class="py-3.5 font-mono font-bold text-xs" style="color: var(--color-foreground-title);"><?= htmlspecialchars($log['username'] ?? 'SYSTEM') ?></td>
+                                    <td class="py-3.5 font-semibold text-xs" style="color: var(--color-foreground-title);"><?= htmlspecialchars($log['action']) ?></td>
+                                    <td class="py-3.5 font-mono text-xs" style="color: var(--color-foreground-muted);"><?= date('Y-m-d', strtotime($log['created_at'])) ?></td>
+                                    <td class="py-3.5 font-mono text-xs" style="color: var(--color-foreground-muted);"><?= date('H:i:s', strtotime($log['created_at'])) ?></td>
+                                    <td class="py-3.5 font-mono text-xs" style="color: var(--color-foreground-muted);"><?= htmlspecialchars($log['ip_address'] ?? 'N/A') ?></td>
+                                    <td class="py-3.5 text-xs" style="color: var(--color-foreground-title);">
                                         <span class="<?= $riskColor ?>"><?= htmlspecialchars($log['threat_classification']) ?></span>
                                         <span class="text-3xs font-mono opacity-50">(<?= $log['risk_score'] ?>% Risk)</span>
                                     </td>

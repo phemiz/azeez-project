@@ -75,28 +75,28 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
                         </tr>
                     <?php else: ?>
                         <?php foreach ($users as $u): ?>
-                            <tr class="hover:bg-slate-800/10 transition-colors text-gray-300">
-                                <td class="py-4 font-bold text-white font-mono"><?= htmlspecialchars($u['username']) ?></td>
-                                <td class="py-4 font-mono"><?= htmlspecialchars($u['email']) ?></td>
-                                <td class="py-4 font-mono"><?= htmlspecialchars($u['phone']) ?></td>
+                            <tr class="hover:bg-slate-100/50 transition-colors border-b border-slate-100" style="color: var(--color-foreground-title);">
+                                <td class="py-4 font-bold font-mono" style="color: var(--color-foreground-title);"><?= htmlspecialchars($u['username']) ?></td>
+                                <td class="py-4 font-mono" style="color: var(--color-foreground);"><?= htmlspecialchars($u['email']) ?></td>
+                                <td class="py-4 font-mono" style="color: var(--color-foreground);"><?= htmlspecialchars($u['phone']) ?></td>
                                 <td class="py-4 text-center">
-                                    <span class="px-2 py-0.5 rounded text-[9px] font-bold font-mono tracking-wider <?= $u['role'] === 'admin' ? 'bg-red-500/10 text-red-400' : 'bg-cyan-500/10 text-cyan-400' ?>">
+                                    <span class="px-2 py-0.5 rounded text-[9px] font-bold font-mono tracking-wider <?= $u['role'] === 'admin' ? 'bg-red-50 text-red-700 border border-red-200/50' : 'bg-indigo-50 text-indigo-700 border border-indigo-200/50' ?>">
                                         <?= strtoupper($u['role']) ?>
                                     </span>
                                 </td>
                                 <td class="py-4 text-center">
-                                    <span class="px-2 py-0.5 rounded text-[9px] font-bold font-mono tracking-wider <?= $u['status'] === 'active' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400' ?>">
+                                    <span class="px-2 py-0.5 rounded text-[9px] font-bold font-mono tracking-wider <?= $u['status'] === 'active' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200/50' : 'bg-rose-50 text-rose-700 border border-rose-200/50' ?>">
                                         <?= strtoupper($u['status']) ?>
                                     </span>
                                 </td>
                                 <td class="py-4 font-mono" style="color: var(--color-foreground-muted);"><?= date('Y-m-d H:i', strtotime($u['created_at'])) ?></td>
                                 <td class="py-4 text-right space-x-1">
-                                    <button onclick="openEditModal('<?= htmlspecialchars(json_encode($u)) ?>')" class="py-1 px-2 border border-cyan-500/30 hover:bg-cyan-500/10 text-cyan-400 rounded text-[10px] font-bold cursor-pointer font-mono">Edit</button>
-                                    <button onclick="openResetModal(<?= $u['id'] ?>)" class="py-1 px-2 border border-amber-500/30 hover:bg-amber-500/10 text-amber-500 rounded text-[10px] font-bold cursor-pointer font-mono">Pass</button>
+                                    <button onclick="openEditModal('<?= htmlspecialchars(json_encode($u)) ?>')" class="py-1 px-2.5 border border-indigo-300 hover:bg-indigo-500 hover:text-white text-indigo-700 rounded text-[10px] font-bold cursor-pointer font-mono bg-indigo-50">Edit</button>
+                                    <button onclick="openResetModal(<?= $u['id'] ?>)" class="py-1 px-2.5 border border-amber-300 hover:bg-amber-500 hover:text-white text-amber-700 rounded text-[10px] font-bold cursor-pointer font-mono bg-amber-50">Pass</button>
                                     
                                     <?php if ($u['id'] !== $user['id']): ?>
-                                        <button onclick="toggleLockState(<?= $u['id'] ?>, '<?= $u['status'] === 'locked' ? 'unlock' : 'lock' ?>')" class="py-1 px-2 border border-slate-700 hover:bg-slate-800 text-gray-300 rounded text-[10px] font-bold cursor-pointer font-mono"><?= $u['status'] === 'locked' ? 'Unlock' : 'Lock' ?></button>
-                                        <button onclick="deleteOperator(<?= $u['id'] ?>)" class="py-1 px-2 border border-rose-500/30 hover:bg-rose-500/10 text-rose-400 rounded text-[10px] font-bold cursor-pointer font-mono">Delete</button>
+                                        <button onclick="toggleLockState(<?= $u['id'] ?>, '<?= $u['status'] === 'locked' ? 'unlock' : 'lock' ?>')" class="py-1 px-2.5 border border-slate-300 hover:bg-slate-500 hover:text-white text-slate-700 rounded text-[10px] font-bold cursor-pointer font-mono bg-slate-50"><?= $u['status'] === 'locked' ? 'Unlock' : 'Lock' ?></button>
+                                        <button onclick="deleteOperator(<?= $u['id'] ?>)" class="py-1 px-2.5 border border-rose-300 hover:bg-rose-500 hover:text-white text-rose-700 rounded text-[10px] font-bold cursor-pointer font-mono bg-rose-50">Delete</button>
                                     <?php endif; ?>
                                 </td>
                             </tr>
