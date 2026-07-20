@@ -83,14 +83,15 @@ class AdminController extends Controller {
         $latestAiReports = $this->db->fetchAll(
             "SELECT l.*, u.username FROM activity_logs l 
              LEFT JOIN users u ON l.user_id = u.id 
-             WHERE l.risk_score >= 30 
+             LEFT JOIN risk_scores r ON l.user_id = r.user_id 
+             WHERE r.score >= 30 
              ORDER BY l.created_at DESC LIMIT 5"
         );
 
         // Threat classification distributions (for Chart.js rendering)
         $threatStats = $this->db->fetchAll(
             "SELECT threat_classification, COUNT(*) as count 
-             FROM activity_logs 
+             FROM threat_reports 
              WHERE threat_classification != 'Normal' 
              GROUP BY threat_classification"
         );
