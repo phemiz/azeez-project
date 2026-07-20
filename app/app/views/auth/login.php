@@ -4,7 +4,7 @@ $csrfToken = \App\Core\Session::generateCSRFToken();
 ?>
 
 <div class="flex items-center justify-center min-h-[70vh]">
-    <div class="w-full max-w-md p-8 rounded-2xl cyber-panel border border-cyan-500/20 relative overflow-hidden">
+    <div class="w-full max-w-md p-8 rounded-2xl cyber-panel border border-cyan-500/20 relative overflow-hidden security-scanner">
         
         <!-- Glow accents -->
         <div class="absolute -top-24 -left-24 w-48 h-48 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none"></div>
