@@ -48,11 +48,10 @@ if (!defined('ENTRY_SECURE') && count(get_included_files()) === 1) {
         }
     </script>
     
-    <!-- Custom styling for cyber-glow aesthetics -->
     <style>
         body {
-            background-color: #030712;
-            color: #f3f4f6;
+            background-color: var(--color-background);
+            color: var(--color-foreground-title);
         }
         .cyber-panel {
             background: rgba(17, 24, 39, 0.7);

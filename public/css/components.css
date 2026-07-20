@@ -6,28 +6,28 @@
   /* Tokens - Primitive Core */
   --primitive-green-500: #00FF41;
   --primitive-green-950: #011605;
-  --primitive-slate-950: #000000;
-  --primitive-slate-900: #080808;
-  --primitive-slate-800: #0d0d0d;
-  --primitive-slate-700: #121212;
-  --primitive-slate-600: #181818;
-  --primitive-slate-500: #1f1f1f;
-  --primitive-slate-400: #888888;
-  --primitive-slate-200: #e0e0e0;
+  --primitive-slate-950: #080c14; /* Deep cyber navy black */
+  --primitive-slate-900: #111827; /* Rich slate surface */
+  --primitive-slate-800: #1f2937; /* Card background */
+  --primitive-slate-700: #374151; /* Borders */
+  --primitive-slate-600: #4b5563;
+  --primitive-slate-500: #6b7280;
+  --primitive-slate-400: #9ca3af;
+  --primitive-slate-200: #f3f4f6;
   --primitive-slate-100: #ffffff;
-  --primitive-red-500: #FF3333;
-  --primitive-red-650: #8b0000;
+  --primitive-red-500: #f43f5e;
+  --primitive-red-650: #be123c;
 
   /* Tokens - Semantic */
   --color-background: var(--primitive-slate-950);
   --color-surface: var(--primitive-slate-900);
   --color-card: var(--primitive-slate-800);
-  --color-border: var(--primitive-slate-500);
+  --color-border: var(--primitive-slate-700);
   --color-primary: var(--primitive-green-500);
   --color-accent: var(--primitive-red-500);
-  --color-foreground: var(--primitive-slate-200);
-  --color-foreground-title: var(--primitive-slate-100);
-  --color-foreground-muted: var(--primitive-slate-400);
+  --color-foreground: var(--primitive-slate-400);
+  --color-foreground-title: var(--primitive-slate-200);
+  --color-foreground-muted: var(--primitive-slate-500);
   --color-ring: var(--primitive-green-500);
 }
 
@@ -183,4 +183,18 @@ code, pre, .mono-data {
 
 .toast-error {
   border-left-color: var(--color-accent);
+}
+
+/* Custom highly-visible styles for OTP Verification Boxes */
+.otp-digit {
+  background-color: #1e293b !important; /* Lighter slate-800 background */
+  border: 2px solid #4b5563 !important; /* Thick grey border */
+  color: #00FF41 !important; /* Bright green text */
+  transition: all 150ms ease-in-out;
+}
+
+.otp-digit:focus {
+  border-color: #06b6d4 !important; /* Cyan glow border */
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.6) !important;
+  background-color: #0f172a !important; /* Deep dark background on focus */
 }
